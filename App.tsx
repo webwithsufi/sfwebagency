@@ -1,0 +1,126 @@
+
+import React, { useState, useEffect } from 'react';
+import { Navbar } from './components/Navbar.tsx';
+import { Hero } from './components/Hero.tsx';
+import { About } from './components/About.tsx';
+import { Services } from './components/Services.tsx';
+import { GrowthTool } from './components/GrowthTool.tsx';
+import { Blog } from './components/Blog.tsx';
+import { BlogPost } from './components/BlogPost.tsx';
+import { Testimonials } from './components/Testimonials.tsx';
+import { Contact } from './components/Contact.tsx';
+import { Footer } from './components/Footer.tsx';
+
+const App: React.FC = () => {
+  const [scrolled, setScrolled] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const [currentPost, setCurrentPost] = useState<any>(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      setScrollProgress((winScroll / height) * 100);
+    };
+
+    const observerCallback = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, {
+      threshold: 0.1
+    });
+
+    const setupObserver = () => {
+      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    setupObserver();
+
+    const timeoutId = setTimeout(setupObserver, 500);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      observer.disconnect();
+      clearTimeout(timeoutId);
+    };
+  }, [currentPost]);
+
+  const handleReadBlog = (post: any) => {
+    setCurrentPost(post);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleBackToHome = (targetId?: string) => {
+    setCurrentPost(null);
+    if (targetId) {
+      setTimeout(() => {
+        const element = document.getElementById(targetId.replace('#', ''));
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 50);
+    }
+  };
+
+  if (currentPost) {
+    return (
+      <div className="min-h-screen bg-[#020617] selection:bg-indigo-500/30 selection:text-indigo-200">
+        <Navbar scrolled={true} />
+        <main className="pt-20">
+          <BlogPost post={currentPost} onBack={handleBackToHome} />
+        </main>
+        <Footer />
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-[#020617] selection:bg-indigo-500/30 selection:text-indigo-200 overflow-x-hidden">
+      <div 
+        className="fixed top-0 left-0 h-1 accent-gradient z-[100] transition-all duration-150" 
+        style={{ width: `${scrollProgress}%` }}
+      />
+      
+      {/* Animated Background Spheres */}
+      <div className="aurora-sphere w-[500px] h-[500px] bg-indigo-600/20 -top-20 -left-20" />
+      <div className="aurora-sphere w-[400px] h-[400px] bg-purple-600/10 top-[40%] -right-20" />
+      <div className="aurora-sphere w-[600px] h-[600px] bg-blue-600/10 -bottom-20 left-[20%]" />
+
+      <Navbar scrolled={scrolled} />
+      
+      <main>
+        <Hero />
+        <section id="about">
+          <About />
+        </section>
+        <section id="services">
+          <Services />
+        </section>
+        <section id="ai-strategy" className="py-20 relative">
+          <div className="absolute inset-0 bg-indigo-500/[0.02] -z-10" />
+          <GrowthTool />
+        </section>
+        <section id="blog">
+          <Blog onReadPost={handleReadBlog} />
+        </section>
+        <section id="testimonials">
+          <Testimonials />
+        </section>
+        <section id="contact">
+          <Contact />
+        </section>
+      </main>
+
+      <Footer />
+    </div>
+  );
+};
+
+export default App;
