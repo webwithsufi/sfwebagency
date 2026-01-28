@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Sparkles, Loader2, Send, Terminal, ArrowRight } from 'lucide-react';
+import { Sparkles, Loader2, Send, Terminal, ArrowRight, AlertCircle, RefreshCw } from 'lucide-react';
 import { GoogleGenAI, Type } from "@google/genai";
 
 interface StrategyResult {
@@ -13,19 +13,29 @@ interface StrategyResult {
 export const GrowthTool: React.FC = () => {
   const [niche, setNiche] = useState('');
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<StrategyResult[] | null>(null);
 
   const generateStrategy = async () => {
     if (!niche) return;
     setLoading(true);
+    setError(null);
     setResult(null);
+
+    // Diagnostics for Vercel
+    if (!process.env.API_KEY) {
+      console.error("CRITICAL: API_KEY is missing. Check Vercel Environment Variables.");
+      setError("API Connection Missing. Please ensure the API_KEY environment variable is set in your project dashboard.");
+      setLoading(false);
+      return;
+    }
 
     try {
       const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
       const response = await ai.models.generateContent({
         model: 'gemini-3-flash-preview',
         contents: `Generate an elite level digital growth strategy for a business in the niche: "${niche}". 
-                   Provide professional, deeply technical insights. Output 3 key strategic pillars.`,
+                   Provide professional, deeply technical insights. Output exactly 3 key strategic pillars as JSON.`,
         config: {
           responseMimeType: "application/json",
           responseSchema: {
@@ -44,10 +54,14 @@ export const GrowthTool: React.FC = () => {
         }
       });
 
-      const data = JSON.parse(response.text || '[]');
+      const text = response.text;
+      if (!text) throw new Error("Empty response from AI engine.");
+      
+      const data = JSON.parse(text);
       setResult(data);
-    } catch (error) {
-      console.error("AI Generation failed:", error);
+    } catch (err: any) {
+      console.error("AI Generation failed:", err);
+      setError(err.message || "Failed to connect to the AI engine. Please try again in a moment.");
     } finally {
       setLoading(false);
     }
@@ -79,7 +93,11 @@ export const GrowthTool: React.FC = () => {
             placeholder="What industry are you disrupting? (e.g. Fintech, Luxury Fashion)"
             className="flex-1 bg-white/5 border border-white/10 rounded-2xl px-8 py-5 text-white placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all font-medium"
             value={niche}
-            onChange={(e) => setNiche(e.target.value)}
+            onChange={(e) => {
+              setNiche(e.target.value);
+              if (error) setError(null);
+            }}
+            onKeyDown={(e) => e.key === 'Enter' && generateStrategy()}
           />
           <button 
             onClick={generateStrategy}
@@ -91,13 +109,29 @@ export const GrowthTool: React.FC = () => {
           </button>
         </div>
 
+        {error && (
+          <div className="max-w-2xl mx-auto mb-10 p-6 bg-red-500/10 border border-red-500/20 rounded-3xl flex items-start gap-4 animate-in fade-in slide-in-from-top-4 duration-300">
+            <AlertCircle className="text-red-400 shrink-0 mt-1" size={24} />
+            <div className="flex-1">
+              <h5 className="text-red-400 font-bold text-sm uppercase tracking-widest mb-1">Engine Error</h5>
+              <p className="text-slate-400 text-sm leading-relaxed mb-4">{error}</p>
+              <button 
+                onClick={generateStrategy}
+                className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-white hover:text-red-400 transition-colors"
+              >
+                <RefreshCw size={12} /> Retry Connection
+              </button>
+            </div>
+          </div>
+        )}
+
         {result && (
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-3 gap-8 animate-in fade-in zoom-in duration-700">
             {result.map((strategy, i) => (
               <div key={i} className="p-8 bg-white/5 border border-white/10 rounded-[2.5rem] hover:border-indigo-500/30 transition-all flex flex-col h-full group">
                 <div className="flex items-center justify-between mb-8">
                   <span className={`px-4 py-1.5 rounded-full text-[9px] font-black uppercase tracking-widest ${
-                    strategy.priority === 'High' ? 'bg-indigo-500 text-white' : 'bg-white/10 text-slate-400'
+                    strategy.priority.toLowerCase().includes('high') ? 'bg-indigo-500 text-white' : 'bg-white/10 text-slate-400'
                   }`}>
                     {strategy.priority} Priority
                   </span>
