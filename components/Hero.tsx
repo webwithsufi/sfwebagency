@@ -6,29 +6,34 @@ export const Hero: React.FC = () => {
   const scrollToId = (e: React.MouseEvent, id: string) => {
     e.preventDefault();
     const el = document.getElementById(id.replace('#', ''));
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
+    if (el) {
+      const offset = 80;
+      const elementPosition = el.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - offset;
+      window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+    }
   };
 
   return (
-    <div className="relative pt-32 sm:pt-44 pb-20 sm:pb-32 overflow-hidden flex flex-col items-center">
+    <div className="relative pt-28 sm:pt-44 pb-16 sm:pb-32 overflow-hidden flex flex-col items-center">
       <div className="max-w-7xl mx-auto px-6 md:px-8 relative z-10 w-full">
         <div className="flex flex-col items-center text-center">
-          <div className="reveal reveal-up inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-indigo-500/20 bg-indigo-500/5 text-indigo-300 text-[10px] font-black uppercase tracking-[0.3em] mb-8 sm:mb-10">
-            <Sparkles size={14} className="animate-pulse" />
+          <div className="reveal reveal-up inline-flex items-center gap-2 px-3 py-1 md:px-4 md:py-1.5 rounded-full border border-indigo-500/20 bg-indigo-500/5 text-indigo-300 text-[9px] md:text-[10px] font-black uppercase tracking-[0.3em] mb-6 sm:mb-10">
+            <Sparkles size={12} className="animate-pulse md:size-[14px]" />
             <span className="truncate">Scale Beyond Boundaries</span>
           </div>
 
-          <h1 className="reveal reveal-up delay-100 text-5xl sm:text-7xl md:text-8xl lg:text-[8.5rem] font-black leading-[0.9] sm:leading-[0.85] tracking-tighter text-white mb-8 sm:mb-10 uppercase">
+          <h1 className="reveal reveal-up delay-100 text-4xl sm:text-7xl md:text-8xl lg:text-[8.5rem] font-black leading-[1] sm:leading-[0.85] tracking-tighter text-white mb-6 sm:mb-10 uppercase">
             GET MORE <br />
             <span className="gradient-text italic">CUSTOMERS.</span>
           </h1>
           
-          <p className="reveal reveal-up delay-200 max-w-2xl text-base sm:text-lg md:text-xl text-slate-400 mb-10 sm:mb-14 leading-relaxed font-medium px-2 sm:px-4">
+          <p className="reveal reveal-up delay-200 max-w-2xl text-sm sm:text-lg md:text-xl text-slate-400 mb-8 sm:mb-14 leading-relaxed font-medium px-0 sm:px-4">
             We bridge the gap between imagination and market dominance 
             with elite web development and hyper-targeted SEO strategy.
           </p>
 
-          <div className="reveal reveal-up delay-300 flex flex-col sm:flex-row items-center gap-4 sm:gap-8 w-full sm:w-auto px-4 sm:px-0">
+          <div className="reveal reveal-up delay-300 flex flex-col sm:flex-row items-center gap-4 sm:gap-8 w-full sm:w-auto">
             <a 
               href="#contact" 
               onClick={(e) => scrollToId(e, '#contact')}
@@ -46,18 +51,18 @@ export const Hero: React.FC = () => {
           </div>
         </div>
 
-        <div className="mt-24 sm:mt-40 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="mt-16 sm:mt-40 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {[
-            { icon: <Rocket size={24} className="text-indigo-400" />, title: "Market Dominance", label: "Outperform your competition" },
-            { icon: <Globe2 size={24} className="text-purple-400" />, title: "Global Reach", label: "Fast, modern web engineering" },
-            { icon: <BarChart size={24} className="text-pink-400" />, title: "Precision SEO", label: "Focus on ROI-driven traffic" }
+            { icon: <Rocket size={20} className="text-indigo-400 md:size-6" />, title: "Market Dominance", label: "Outperform your competition" },
+            { icon: <Globe2 size={20} className="text-purple-400 md:size-6" />, title: "Global Reach", label: "Fast, modern web engineering" },
+            { icon: <BarChart size={20} className="text-pink-400 md:size-6" />, title: "Precision SEO", label: "Focus on ROI-driven traffic" }
           ].map((item, i) => (
-            <div key={i} className={`reveal reveal-up delay-${(i + 4) * 100} glass-card p-8 sm:p-10 rounded-[2.5rem] sm:rounded-[3rem] group h-full ${i === 2 && 'sm:col-span-2 lg:col-span-1'}`}>
-              <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-white/5 flex items-center justify-center mb-6 sm:mb-8 group-hover:scale-110 group-hover:bg-indigo-500/10 transition-all duration-500">
+            <div key={i} className={`reveal reveal-up delay-${(i + 4) * 100} glass-card p-6 sm:p-10 rounded-[2rem] sm:rounded-[3rem] group h-full`}>
+              <div className="w-10 h-10 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-white/5 flex items-center justify-center mb-4 sm:mb-8 group-hover:scale-110 group-hover:bg-indigo-500/10 transition-all duration-500">
                 {item.icon}
               </div>
-              <h3 className="text-xl sm:text-2xl font-bold text-white mb-2 tracking-tight">{item.title}</h3>
-              <p className="text-slate-500 font-semibold text-xs sm:text-sm">{item.label}</p>
+              <h3 className="text-lg sm:text-2xl font-bold text-white mb-2 tracking-tight">{item.title}</h3>
+              <p className="text-slate-500 font-semibold text-[10px] sm:text-sm">{item.label}</p>
             </div>
           ))}
         </div>

@@ -33,22 +33,24 @@ const App: React.FC = () => {
     };
 
     const observer = new IntersectionObserver(observerCallback, {
-      threshold: 0.1
+      threshold: 0.05, // More aggressive trigger
+      rootMargin: '50px' // Start animation before it enters viewport
     });
 
     const setupObserver = () => {
-      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+      const elements = document.querySelectorAll('.reveal');
+      elements.forEach(el => observer.observe(el));
     };
 
-    window.addEventListener('scroll', handleScroll);
-    setupObserver();
-
-    const timeoutId = setTimeout(setupObserver, 500);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    
+    // Initial setup
+    const timer = setTimeout(setupObserver, 200);
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
       observer.disconnect();
-      clearTimeout(timeoutId);
+      clearTimeout(timer);
     };
   }, [currentPost]);
 
@@ -89,9 +91,9 @@ const App: React.FC = () => {
       />
       
       {/* Animated Background Spheres */}
-      <div className="aurora-sphere w-[500px] h-[500px] bg-indigo-600/20 -top-20 -left-20" />
-      <div className="aurora-sphere w-[400px] h-[400px] bg-purple-600/10 top-[40%] -right-20" />
-      <div className="aurora-sphere w-[600px] h-[600px] bg-blue-600/10 -bottom-20 left-[20%]" />
+      <div className="aurora-sphere w-[300px] h-[300px] sm:w-[500px] sm:h-[500px] bg-indigo-600/20 -top-20 -left-20" />
+      <div className="aurora-sphere w-[250px] h-[250px] sm:w-[400px] sm:h-[400px] bg-purple-600/10 top-[40%] -right-20" />
+      <div className="aurora-sphere w-[350px] h-[350px] sm:w-[600px] sm:h-[600px] bg-blue-600/10 -bottom-20 left-[20%]" />
 
       <Navbar scrolled={scrolled} />
       
