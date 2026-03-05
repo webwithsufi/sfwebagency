@@ -15,29 +15,29 @@ export const Hero: React.FC = () => {
   };
 
   return (
-    <div className="relative pt-28 sm:pt-44 pb-16 sm:pb-32 overflow-hidden flex flex-col items-center">
+    <div className="relative pt-24 sm:pt-44 pb-16 sm:pb-32 overflow-hidden flex flex-col items-center">
       <div className="max-w-7xl mx-auto px-6 md:px-8 relative z-10 w-full">
         <div className="flex flex-col items-center text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-indigo-500/20 bg-indigo-500/5 text-indigo-300 text-[10px] font-black uppercase tracking-[0.3em] mb-10 shadow-lg shadow-indigo-500/5">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-indigo-500/20 bg-indigo-500/5 text-indigo-300 text-sm font-black uppercase tracking-[0.3em] mb-8 sm:mb-10 shadow-lg shadow-indigo-500/5">
             <Sparkles size={14} className="animate-pulse text-indigo-400" />
             <span className="truncate">Global Growth Partners 2024</span>
           </div>
 
-          <h1 className="text-3xl sm:text-7xl md:text-8xl lg:text-[7rem] font-black leading-[0.95] tracking-tighter text-white mb-10 uppercase">
+          <h1 className="text-5xl sm:text-7xl md:text-8xl lg:text-[7rem] font-black leading-[0.95] tracking-tighter text-white mb-8 sm:mb-10 uppercase">
             WE BUILD <br />
             <span className="gradient-text italic">EMPIRES.</span>
           </h1>
           
-          <p className="max-w-2xl text-lg sm:text-xl text-slate-400 mb-14 leading-relaxed font-medium px-4">
+          <p className="max-w-2xl text-lg sm:text-xl text-slate-400 mb-10 sm:mb-14 leading-relaxed font-medium px-4">
             High-performance websites that convert visitors into clients. 
             Modern, fast, and conversion-focused web solutions for startups and ambitious businesses.
           </p>
 
-          <div className="flex flex-col sm:flex-row items-center gap-6 w-full sm:w-auto">
+          <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 w-full sm:w-auto">
             <a 
               href="#contact" 
               onClick={(e) => scrollToId(e, '#contact')}
-              className="w-full sm:w-auto px-12 py-6 accent-gradient text-white rounded-full font-black text-sm uppercase tracking-[0.2em] transition-all hover:scale-105 active:scale-95 shadow-[0_25px_60px_-15px_rgba(99,102,241,0.6)] text-center"
+              className="w-full sm:w-auto px-8 sm:px-12 py-4 sm:py-6 accent-gradient text-white rounded-full font-black text-xs sm:text-sm uppercase tracking-[0.2em] transition-all hover:scale-105 active:scale-95 shadow-[0_25px_60px_-15px_rgba(99,102,241,0.6)] text-center"
             >
               Get a Free Consultation
             </a>
@@ -50,13 +50,13 @@ export const Hero: React.FC = () => {
             </a>
           </div>
 
-          <div className="mt-16 flex flex-col items-center gap-6">
-            <p className="text-[9px] font-black uppercase tracking-[0.4em] text-slate-600">Trusted by innovative brands</p>
-            <div className="flex flex-wrap justify-center items-center gap-8 sm:gap-12 opacity-40 grayscale hover:grayscale-0 transition-all duration-700">
-              <span className="text-xl sm:text-2xl font-black text-white tracking-tighter">TECHFLOW</span>
-              <span className="text-xl sm:text-2xl font-black text-white tracking-tighter">URBANSTYLE</span>
-              <span className="text-xl sm:text-2xl font-black text-white tracking-tighter">GLOBALINC</span>
-              <span className="text-xl sm:text-2xl font-black text-white tracking-tighter">NEXUSCORE</span>
+          <div className="mt-12 sm:mt-16 flex flex-col items-center gap-6">
+            <p className="text-xs font-black uppercase tracking-[0.4em] text-slate-600">Trusted by innovative brands</p>
+            <div className="flex flex-wrap justify-center items-center gap-6 sm:gap-12 opacity-40 grayscale hover:grayscale-0 transition-all duration-700">
+              <span className="text-lg sm:text-2xl font-black text-white tracking-tighter">TECHFLOW</span>
+              <span className="text-lg sm:text-2xl font-black text-white tracking-tighter">URBANSTYLE</span>
+              <span className="text-lg sm:text-2xl font-black text-white tracking-tighter">GLOBALINC</span>
+              <span className="text-lg sm:text-2xl font-black text-white tracking-tighter">SFCORE</span>
             </div>
           </div>
         </div>

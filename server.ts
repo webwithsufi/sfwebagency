@@ -28,7 +28,7 @@ async function startServer() {
         <p>In 2024, Google's algorithms have evolved beyond simple keyword matching. The search engine now uses <strong>Entity-Based Search</strong>, which focuses on relationships between topics rather than just strings of text. If you want to rank, you need to prove you are an authority in your niche.</p>
         
         <h3>The Importance of E-E-A-T</h3>
-        <p>Experience, Expertise, Authoritativeness, and Trustworthiness (E-E-A-T) are the pillars of modern SEO. At Nexus Growth, we focus on building these signals through high-quality backlinking and technical site audits. You can explore our <a href="#ai-strategy" class="text-indigo-400 font-bold">AI Strategy Engine</a> to see how we map out authority.</p>
+        <p>Experience, Expertise, Authoritativeness, and Trustworthiness (E-E-A-T) are the pillars of modern SEO. At SF Growth, we focus on building these signals through high-quality backlinking and technical site audits. You can explore our <a href="#ai-strategy" class="text-indigo-400 font-bold">AI Strategy Engine</a> to see how we map out authority.</p>
         
         <blockquote>"Search engines don't rank websites; they rank answers."</blockquote>
         
@@ -46,7 +46,7 @@ async function startServer() {
       id: "site-speed-sales",
       category: "Web Development",
       title: "The 3-Second Rule: How Site Speed is Killing Your Sales",
-      author: "Nexus Engineering Team",
+      author: "SF Engineering Team",
       date: "April 02, 2024",
       image: "https://picsum.photos/seed/speed/1200/630",
       excerpt: "Every millisecond your site takes to load, you lose 7% of your conversions. Here's how high-performance code turns visitors into buyers.",
@@ -74,7 +74,7 @@ async function startServer() {
       excerpt: "Most agencies focus on CPC. We focus on CPA. Discover the secret to scaling your budget without losing your profit margins.",
       content: `
         <h2>The Vanity Metric Trap</h2>
-        <p>Many agencies will brag about low "Cost Per Click" (CPC). But if those clicks don't convert, they are worthless. At Nexus, we track the metrics that matter: <strong>ROAS (Return on Ad Spend)</strong> and <strong>CPA (Cost Per Acquisition)</strong>.</p>
+        <p>Many agencies will brag about low "Cost Per Click" (CPC). But if those clicks don't convert, they are worthless. At SF, we track the metrics that matter: <strong>ROAS (Return on Ad Spend)</strong> and <strong>CPA (Cost Per Acquisition)</strong>.</p>
         
         <h3>The 'Intent' Advantage</h3>
         <p>Unlike Social Media ads, where you interrupt someone's scrolling, Google Ads catch people while they are actively looking for a solution. This is "High Intent" traffic. The math is simple: target the right intent + high-converting landing page = Profit.</p>
@@ -92,21 +92,21 @@ async function startServer() {
     {
       name: "Sarah Jenkins",
       role: "CEO at TechFlow",
-      image: "https://picsum.photos/seed/sarah/100/100",
-      content: "Nexus Growth completely transformed our online presence. Our traffic grew by 300% in 4 months after their SEO overhaul.",
+      image: "https://i.pravatar.cc/150?u=sarah",
+      content: "SF Growth completely transformed our online presence. Our traffic grew by 300% in 4 months after their SEO overhaul.",
       rating: 5
     },
     {
       name: "Marcus Thorne",
       role: "Founder of UrbanStyle",
-      image: "https://picsum.photos/seed/marcus/100/100",
+      image: "https://i.pravatar.cc/150?u=marcus",
       content: "The custom dashboard they built for us is a work of art. High-performance code that actually delivers sales.",
       rating: 5
     },
     {
       name: "Elena Rodriguez",
       role: "Marketing Director at GlobaLync",
-      image: "https://picsum.photos/seed/elena/100/100",
+      image: "https://i.pravatar.cc/150?u=elena",
       content: "Professional, data-driven, and incredibly responsive. They are the only agency we trust with our digital strategy.",
       rating: 5
     }

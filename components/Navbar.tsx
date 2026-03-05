@@ -62,10 +62,9 @@ export const Navbar: React.FC<NavbarProps> = ({ scrolled }) => {
             : 'py-4 bg-transparent border border-transparent'
         }`}>
           <a href="#" onClick={(e) => scrollToSection(e, '#')} className="flex items-center gap-2 group cursor-pointer shrink-0">
-            <div className="w-7 h-7 md:w-8 md:h-8 rounded-lg accent-gradient flex items-center justify-center shadow-lg group-hover:rotate-12 transition-transform">
-              <Zap size={16} className="text-white fill-current md:size-[18px]" />
+            <div className="w-12 h-12 md:w-16 md:h-16 rounded-lg flex items-center justify-center transition-transform group-hover:scale-110">
+              <img src="/logo.svg" alt="SF Growth Agency Logo" className="w-full h-full object-contain" />
             </div>
-            <span className="text-base md:text-lg font-extrabold tracking-tighter text-white uppercase">Nexus</span>
           </a>
 
           <div className="hidden md:flex items-center gap-6 text-[10px] font-black tracking-[0.2em] uppercase text-gray-400">
@@ -107,17 +106,17 @@ export const Navbar: React.FC<NavbarProps> = ({ scrolled }) => {
           onClick={() => setMobileMenuOpen(false)} 
         />
         <div className={`absolute right-0 top-0 bottom-0 w-[85%] max-w-sm bg-[#020617] border-l border-white/10 flex flex-col transition-transform duration-500 cubic-bezier(0.16, 1, 0.3, 1) shadow-2xl ${mobileMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}>
-          <div className="p-8 flex justify-between items-center border-b border-white/5">
+          <div className="p-6 flex justify-between items-center border-b border-white/5">
             <div className="flex items-center gap-2">
-              <Zap size={20} className="text-indigo-500" />
-              <span className="text-lg font-black tracking-tighter text-white uppercase">NEXUS</span>
+              <img src="/logo.svg" alt="Logo" className="w-10 h-10" />
+              <span className="text-base font-black tracking-tighter text-white uppercase">SF GROWTH</span>
             </div>
             <button onClick={() => setMobileMenuOpen(false)} className="text-gray-400 hover:text-white p-2 bg-white/5 rounded-full transition-colors">
-              <X size={24} />
+              <X size={20} />
             </button>
           </div>
           
-          <div className="flex-1 overflow-y-auto p-8 flex flex-col gap-8">
+          <div className="flex-1 overflow-y-auto p-6 flex flex-col gap-8">
             <div className="space-y-6">
               <p className="text-[10px] font-black tracking-[0.3em] text-indigo-500 uppercase">Navigation</p>
               {navLinks.map((link) => (
@@ -125,10 +124,10 @@ export const Navbar: React.FC<NavbarProps> = ({ scrolled }) => {
                   key={link.name} 
                   href={link.href} 
                   onClick={(e) => scrollToSection(e, link.href)}
-                  className="text-3xl font-bold text-gray-300 hover:text-white transition-all flex items-center justify-between group active:scale-95"
+                  className="text-2xl font-bold text-gray-300 hover:text-white transition-all flex items-center justify-between group active:scale-95"
                 >
                   {link.name}
-                  <ArrowRight size={24} className="text-indigo-500 opacity-50" />
+                  <ArrowRight size={20} className="text-indigo-500 opacity-50" />
                 </a>
               ))}
             </div>

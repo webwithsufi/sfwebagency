@@ -28,7 +28,7 @@ export const GrowthTool: React.FC = () => {
       const apiKey = process.env.API_KEY || (import.meta as any).env.VITE_GEMINI_API_KEY;
       
       if (!apiKey || apiKey === 'YOUR_API_KEY') {
-        throw new Error("Nexus AI Core is not configured. Please set VITE_GEMINI_API_KEY in your environment.");
+        throw new Error("SF AI Core is not configured. Please set VITE_GEMINI_API_KEY in your environment.");
       }
 
       const ai = new GoogleGenAI({ apiKey });
@@ -36,7 +36,7 @@ export const GrowthTool: React.FC = () => {
         model: 'gemini-3-flash-preview',
         contents: [{
           parts: [{
-            text: `You are an elite Digital Growth Consultant for Nexus Growth Agency.
+            text: `You are an elite Digital Growth Consultant for SF Growth Agency.
             A potential high-ticket client in the niche: "${niche}" is looking for a scaling roadmap.
             
             Generate a sophisticated, data-driven strategy consisting of exactly 3 pillars.
@@ -71,7 +71,7 @@ export const GrowthTool: React.FC = () => {
       setResult(data);
     } catch (err: any) {
       console.error("AI Engine Error:", err);
-      setError(err.message || "Failed to connect to the Nexus AI Core.");
+      setError(err.message || "Failed to connect to the SF AI Core.");
     } finally {
       setLoading(false);
     }
@@ -89,17 +89,17 @@ export const GrowthTool: React.FC = () => {
           <Cpu size={180} className="text-indigo-500" />
         </div>
 
-        <div className="text-center mb-16 relative z-10">
-          <div className="w-20 h-20 sm:w-28 sm:h-28 rounded-3xl accent-gradient flex items-center justify-center mx-auto mb-10 shadow-[0_25px_50px_-12px_rgba(99,102,241,0.5)] border border-white/20">
+        <div className="text-center mb-12 sm:mb-16 relative z-10">
+          <div className="w-20 h-20 sm:w-28 sm:h-28 rounded-3xl accent-gradient flex items-center justify-center mx-auto mb-8 sm:mb-10 shadow-[0_25px_50px_-12px_rgba(99,102,241,0.5)] border border-white/20">
             <Sparkles size={40} className="text-white animate-pulse" />
           </div>
-          <h2 className="text-2xl sm:text-6xl font-black text-white mb-6 tracking-tighter uppercase">AI Strategy Engine</h2>
-          <p className="text-slate-400 text-lg font-medium px-4 max-w-2xl mx-auto leading-relaxed">
-            Harness the power of our proprietary Nexus Intelligence to generate a bespoke growth roadmap for your industry in seconds.
+          <h2 className="text-3xl sm:text-6xl font-black text-white mb-6 tracking-tighter uppercase">AI Strategy Engine</h2>
+          <p className="text-slate-400 text-base sm:text-lg font-medium px-4 max-w-2xl mx-auto leading-relaxed">
+            Harness the power of our proprietary SF Intelligence to generate a bespoke growth roadmap for your industry in seconds.
           </p>
         </div>
 
-        <div className="max-w-3xl mx-auto flex flex-col sm:flex-row gap-4 mb-20 relative z-10">
+        <div className="max-w-3xl mx-auto flex flex-col sm:flex-row gap-4 mb-16 sm:mb-20 relative z-10">
           <input 
             type="text"
             placeholder="Enter your industry (e.g. SaaS)"
@@ -114,7 +114,7 @@ export const GrowthTool: React.FC = () => {
           <button 
             onClick={generateStrategy}
             disabled={loading || !niche}
-            className="px-12 py-5 accent-gradient text-white rounded-2xl font-black uppercase tracking-[0.2em] flex items-center justify-center gap-3 transition-all hover:scale-[1.03] active:scale-95 disabled:opacity-50 shadow-[0_20px_40px_-10px_rgba(99,102,241,0.4)] text-sm whitespace-nowrap"
+            className="px-8 sm:px-12 py-4 sm:py-5 accent-gradient text-white rounded-2xl font-black uppercase tracking-[0.2em] flex items-center justify-center gap-3 transition-all hover:scale-[1.03] active:scale-95 disabled:opacity-50 shadow-[0_20px_40px_-10px_rgba(99,102,241,0.4)] text-xs sm:text-sm whitespace-nowrap"
           >
             {loading ? <Loader2 className="animate-spin" size={20} /> : <Terminal size={20} />}
             {loading ? 'Synthesizing...' : 'Analyze Market'}
@@ -125,13 +125,13 @@ export const GrowthTool: React.FC = () => {
           <div className="max-w-2xl mx-auto mb-16 p-6 bg-red-500/10 border border-red-500/20 rounded-3xl flex items-start gap-5 animate-in fade-in slide-in-from-top-4 duration-300">
             <AlertCircle className="text-red-400 shrink-0 mt-1" size={24} />
             <div className="flex-1">
-              <h5 className="text-red-400 font-black text-xs uppercase tracking-[0.2em] mb-2">Nexus Core Error</h5>
+              <h5 className="text-red-400 font-black text-xs uppercase tracking-[0.2em] mb-2">SF Core Error</h5>
               <p className="text-slate-400 text-sm leading-relaxed mb-4">{error}</p>
               <button 
                 onClick={generateStrategy}
                 className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-white hover:text-red-400 transition-colors"
               >
-                <RefreshCw size={12} /> Restart Nexus Engine
+                <RefreshCw size={12} /> Restart SF Engine
               </button>
             </div>
           </div>

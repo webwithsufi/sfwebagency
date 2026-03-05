@@ -58,45 +58,45 @@ export const Contact: React.FC = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-6 md:px-8 py-20 sm:py-32">
-      <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-start">
-        <div className="sticky top-32">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 text-indigo-400 text-[10px] font-bold uppercase tracking-widest mb-6 border border-indigo-500/20">
+      <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-start text-center lg:text-left">
+        <div className="sticky top-32 flex flex-col items-center lg:items-start">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 text-indigo-400 text-sm font-bold uppercase tracking-widest mb-6 border border-indigo-500/20">
             <Zap size={12} /> Priority Access
           </div>
-          <h3 className="text-3xl sm:text-5xl md:text-7xl font-black text-white mb-6 tracking-tighter leading-tight uppercase">
+          <h3 className="text-4xl sm:text-5xl md:text-7xl font-black text-white mb-6 tracking-tighter leading-tight uppercase">
             Let's build your <br /><span className="gradient-text italic">digital empire.</span>
           </h3>
           <p className="text-slate-400 mb-10 text-lg font-medium leading-relaxed max-w-lg">
             Ready to stop playing small? Our team specializes in aggressive growth strategies for ambitious brands. Expect a response within 4 hours.
           </p>
 
-          <div className="space-y-6">
+          <div className="space-y-6 w-full flex flex-col items-center lg:items-start">
             <div onClick={copyEmail} className="flex items-center gap-5 group cursor-pointer w-fit p-4 rounded-3xl hover:bg-white/[0.02] transition-colors border border-transparent hover:border-white/5">
-              <div className="w-14 h-14 rounded-2xl glass-card flex items-center justify-center text-indigo-400 group-hover:scale-110 transition-transform shrink-0 border-indigo-500/20">
+              <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl glass-card flex items-center justify-center text-indigo-400 group-hover:scale-110 transition-transform shrink-0 border-indigo-500/20">
                 <Mail size={20} />
               </div>
-              <div>
-                <p className="text-[10px] uppercase font-black tracking-widest text-slate-500 mb-1">Direct Line</p>
+              <div className="text-left">
+                <p className="text-xs uppercase font-black tracking-widest text-slate-500 mb-1">Direct Line</p>
                 <div className="flex items-center gap-2">
-                  <p className="text-white font-bold text-lg">dmwithsufi@gmail.com</p>
+                   <p className="text-white font-bold text-base sm:text-lg">dmwithsufi@gmail.com</p>
                   {copied ? <Check size={16} className="text-emerald-500" /> : <Copy size={16} className="text-slate-600 opacity-0 group-hover:opacity-100 transition-opacity" />}
                 </div>
               </div>
             </div>
 
             <div className="flex items-center gap-5 group p-4 rounded-3xl hover:bg-white/[0.02] transition-colors border border-transparent hover:border-white/5">
-              <div className="w-14 h-14 rounded-2xl glass-card flex items-center justify-center text-purple-400 group-hover:scale-110 transition-transform shrink-0 border-purple-500/20">
+              <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl glass-card flex items-center justify-center text-purple-400 group-hover:scale-110 transition-transform shrink-0 border-purple-500/20">
                 <Phone size={20} />
               </div>
-              <div>
-                <p className="text-[10px] uppercase font-black tracking-widest text-slate-500 mb-1">Global HQ</p>
-                <p className="text-white font-bold text-lg">Direct Growth Desk</p>
+              <div className="text-left">
+                <p className="text-xs uppercase font-black tracking-widest text-slate-500 mb-1">Global HQ</p>
+                <p className="text-white font-bold text-base sm:text-lg">Direct Growth Desk</p>
               </div>
             </div>
           </div>
         </div>
 
-        <div className="glass-card p-8 sm:p-12 rounded-[3rem] relative overflow-hidden border-white/5 bg-gradient-to-br from-white/[0.02] to-transparent shadow-2xl">
+        <div className="glass-card p-6 sm:p-12 rounded-[2rem] sm:rounded-[3rem] relative overflow-hidden border-white/5 bg-gradient-to-br from-white/[0.02] to-transparent shadow-2xl text-left">
           {submitted ? (
             <div className="text-center py-16 animate-in fade-in zoom-in duration-700">
               <div className="w-24 h-24 bg-emerald-500/20 text-emerald-500 rounded-full flex items-center justify-center mx-auto mb-8 border border-emerald-500/30">
@@ -117,7 +117,7 @@ export const Contact: React.FC = () => {
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="flex items-center gap-3 mb-8 pb-6 border-b border-white/5">
                 <ShieldCheck size={20} className="text-indigo-500" />
-                <span className="text-[10px] font-black uppercase tracking-widest text-slate-500">Secure Consultation Form</span>
+                <span className="text-xs font-black uppercase tracking-widest text-slate-500">Secure Consultation Form</span>
               </div>
 
               {error && (
@@ -128,7 +128,7 @@ export const Contact: React.FC = () => {
               
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div className="space-y-2">
-                  <label htmlFor="contact-name" className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 ml-1">Your Identity</label>
+                  <label htmlFor="contact-name" className="text-xs font-black uppercase tracking-[0.2em] text-slate-500 ml-1">Your Identity</label>
                   <input 
                     id="contact-name"
                     name="name"
@@ -140,7 +140,7 @@ export const Contact: React.FC = () => {
                   />
                 </div>
                 <div className="space-y-2">
-                  <label htmlFor="contact-email" className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 ml-1">Work Email</label>
+                  <label htmlFor="contact-email" className="text-xs font-black uppercase tracking-[0.2em] text-slate-500 ml-1">Work Email</label>
                   <input 
                     id="contact-email"
                     name="email"
@@ -155,7 +155,7 @@ export const Contact: React.FC = () => {
               
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div className="space-y-2">
-                  <label htmlFor="contact-service" className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 ml-1">Service Tier</label>
+                  <label htmlFor="contact-service" className="text-xs font-black uppercase tracking-[0.2em] text-slate-500 ml-1">Service Tier</label>
                   <div className="relative">
                     <select 
                       id="contact-service"
@@ -176,7 +176,7 @@ export const Contact: React.FC = () => {
                 </div>
 
                 <div className="space-y-2">
-                  <label htmlFor="contact-budget" className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 ml-1">Project Budget</label>
+                  <label htmlFor="contact-budget" className="text-xs font-black uppercase tracking-[0.2em] text-slate-500 ml-1">Project Budget</label>
                   <div className="relative">
                     <select 
                       id="contact-budget"
@@ -197,7 +197,7 @@ export const Contact: React.FC = () => {
               </div>
 
               <div className="space-y-2">
-                <label htmlFor="contact-message" className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 ml-1">Project Brief</label>
+                <label htmlFor="contact-message" className="text-xs font-black uppercase tracking-[0.2em] text-slate-500 ml-1">Project Brief</label>
                 <textarea 
                   id="contact-message"
                   name="message"
@@ -219,7 +219,7 @@ export const Contact: React.FC = () => {
 
               <div className="flex items-center justify-center gap-4 mt-6">
                 <div className="h-px bg-white/5 flex-1" />
-                <span className="text-[9px] text-slate-600 font-black uppercase tracking-widest flex items-center gap-2">
+                <span className="text-[10px] text-slate-600 font-black uppercase tracking-widest flex items-center gap-2">
                   <ShieldCheck size={12} className="text-emerald-500" /> SSL Secured
                 </span>
                 <div className="h-px bg-white/5 flex-1" />

@@ -43,7 +43,7 @@ export const BlogPost: React.FC<BlogPostProps> = ({ post, onBack }) => {
     const originalTwitterImage = twitterImage?.getAttribute('content') || '';
 
     // Update meta tags for the current post
-    const fullTitle = `${post.title} | Nexus Growth Insights`;
+    const fullTitle = `${post.title} | SF Growth Insights`;
     document.title = fullTitle;
     metaDescription?.setAttribute('content', post.excerpt);
     ogTitle?.setAttribute('content', fullTitle);
@@ -92,7 +92,7 @@ export const BlogPost: React.FC<BlogPostProps> = ({ post, onBack }) => {
         onClick={() => onBack()}
         className="flex items-center gap-2 text-indigo-400 font-bold uppercase text-[9px] sm:text-[10px] tracking-widest mb-10 sm:mb-12 hover:text-white transition-colors group"
       >
-        <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" /> Back to Nexus Growth
+        <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" /> Back to SF Growth
       </button>
 
       <header className="mb-12 sm:mb-16">
@@ -102,6 +102,15 @@ export const BlogPost: React.FC<BlogPostProps> = ({ post, onBack }) => {
         <h1 className="text-3xl sm:text-5xl md:text-7xl font-bold text-white tracking-tighter mb-8 sm:mb-10 leading-[1] sm:leading-[0.95]">
           {post.title}
         </h1>
+        
+        <div className="mb-12 sm:mb-16 rounded-[2rem] sm:rounded-[3rem] overflow-hidden glass-card border-white/5">
+          <img 
+            src={post.image} 
+            alt={post.title} 
+            referrerPolicy="no-referrer"
+            className="w-full h-full object-cover aspect-video opacity-80"
+          />
+        </div>
         
         <div className="flex flex-wrap items-center gap-4 sm:gap-8 text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.2em] text-slate-500 pb-8 sm:pb-12 border-b border-white/10">
           <div className="flex items-center gap-2">

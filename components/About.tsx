@@ -11,30 +11,30 @@ export const About: React.FC = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-6 md:px-8 py-20 sm:py-32 border-b border-white/5 overflow-hidden">
-      <div className="grid lg:grid-cols-2 gap-16 lg:gap-20 items-center">
+      <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center text-center lg:text-left">
         <div className="relative">
           <div className="absolute -top-20 -left-20 w-64 h-64 bg-indigo-600/10 blur-[100px] rounded-full -z-10" />
-          <h2 className="text-indigo-400 font-bold uppercase tracking-[0.3em] text-[10px] mb-6">Our Story & Mission</h2>
-          <h3 className="text-2xl sm:text-4xl md:text-6xl font-bold text-white mb-6 sm:mb-8 tracking-tighter leading-[1.1] sm:leading-tight">
+          <h2 className="text-indigo-400 font-bold uppercase tracking-[0.3em] text-sm mb-6">Our Story & Mission</h2>
+          <h3 className="text-4xl sm:text-4xl md:text-6xl font-bold text-white mb-6 sm:mb-8 tracking-tighter leading-[1.1] sm:leading-tight">
             Built by engineers. <br />
             <span className="gradient-text italic">Driven by results.</span>
           </h3>
-          <p className="text-slate-400 text-base sm:text-lg leading-relaxed mb-6 font-medium">
-            Nexus Growth Agency wasn't born in a boardroom. It was born in the trenches of high-performance web engineering. 
+          <p className="text-slate-400 text-lg sm:text-lg leading-relaxed mb-6 font-medium">
+            SF Growth Agency wasn't born in a boardroom. It was born in the trenches of high-performance web engineering. 
             I started this agency after seeing too many businesses waste thousands on beautiful websites that simply didn't sell.
           </p>
-          <p className="text-slate-400 text-base sm:text-lg leading-relaxed mb-10 font-medium">
+          <p className="text-slate-400 text-lg sm:text-lg leading-relaxed mb-10 font-medium">
             Our mission is simple: To bridge the gap between elite tech and aggressive marketing. We treat your business as our own, 
             applying the same psychological tactics and sub-second performance standards that we use for our global partners.
           </p>
-          <div className="flex gap-8 sm:gap-10">
+          <div className="flex justify-center lg:justify-start gap-8 sm:gap-10">
             <div className="">
-              <p className="text-3xl sm:text-4xl font-black text-white mb-1">15+</p>
-              <p className="text-[9px] sm:text-[10px] uppercase font-bold tracking-[0.2em] text-slate-500">Global Partners</p>
+              <p className="text-4xl sm:text-4xl font-black text-white mb-1">15+</p>
+              <p className="text-xs uppercase font-bold tracking-[0.2em] text-slate-500">Global Partners</p>
             </div>
             <div className="">
-              <p className="text-3xl sm:text-4xl font-black text-white mb-1">100%</p>
-              <p className="text-[9px] sm:text-[10px] uppercase font-bold tracking-[0.2em] text-slate-500">Success Rate</p>
+              <p className="text-4xl sm:text-4xl font-black text-white mb-1">100%</p>
+              <p className="text-xs uppercase font-bold tracking-[0.2em] text-slate-500">Success Rate</p>
             </div>
           </div>
         </div>

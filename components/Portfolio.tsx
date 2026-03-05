@@ -34,19 +34,19 @@ const caseStudies = [
 
 export const Portfolio: React.FC = () => {
   return (
-    <div className="max-w-7xl mx-auto px-6 md:px-8 py-32">
-      <div className="flex flex-col items-center text-center mb-20">
-        <h2 className="text-indigo-400 font-bold uppercase tracking-[0.3em] text-[10px] mb-4">Case Studies</h2>
-        <h3 className="text-2xl md:text-6xl font-bold text-white tracking-tighter mb-6">Results that <span className="gradient-text italic">speak louder.</span></h3>
-        <p className="text-slate-500 max-w-xl text-lg font-medium">
+    <div className="max-w-7xl mx-auto px-6 md:px-8 py-24 sm:py-32">
+      <div className="flex flex-col items-center text-center mb-16 sm:mb-20">
+        <h2 className="text-indigo-400 font-bold uppercase tracking-[0.3em] text-sm mb-4">Case Studies</h2>
+        <h3 className="text-3xl md:text-6xl font-bold text-white tracking-tighter mb-6 uppercase">Results that <span className="gradient-text italic">speak louder.</span></h3>
+        <p className="text-slate-500 max-w-xl text-lg sm:text-lg font-medium">
           We don't just design; we solve business problems. Explore how we've helped brands dominate their markets.
         </p>
       </div>
 
-      <div className="grid gap-12 sm:gap-20">
+      <div className="grid gap-16 sm:gap-20">
         {caseStudies.map((study, i) => (
           <div key={i} className={`grid lg:grid-cols-2 gap-10 lg:gap-16 items-center group`}>
-            <div className={`relative rounded-[3rem] overflow-hidden glass-card border-white/5 ${i % 2 !== 0 ? 'lg:order-2' : ''}`}>
+            <div className={`relative rounded-[2rem] sm:rounded-[3rem] overflow-hidden glass-card border-white/5 ${i % 2 !== 0 ? 'lg:order-2' : ''}`}>
               <img 
                 src={study.image} 
                 alt={study.client}
@@ -54,24 +54,24 @@ export const Portfolio: React.FC = () => {
                 referrerPolicy="no-referrer"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#020617] via-transparent to-transparent opacity-60" />
-              <div className="absolute bottom-8 left-8 flex gap-3">
+              <div className="absolute bottom-6 sm:bottom-8 left-6 sm:left-8 flex flex-wrap gap-2 sm:gap-3">
                 {study.stats.map((stat, idx) => (
-                  <div key={idx} className="px-4 py-2 rounded-full bg-indigo-600/20 backdrop-blur-md border border-indigo-500/30 text-indigo-300 text-[10px] font-black uppercase tracking-widest">
+                  <div key={idx} className="px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-indigo-600/20 backdrop-blur-md border border-indigo-500/30 text-indigo-300 text-[10px] font-black uppercase tracking-widest">
                     {stat}
                   </div>
                 ))}
               </div>
             </div>
 
-            <div className="space-y-8">
+            <div className="space-y-6 sm:space-y-8">
               <div>
-                <span className="text-[10px] font-black uppercase tracking-widest text-indigo-400 mb-4 inline-block">{study.type}</span>
-                <h4 className="text-3xl sm:text-4xl font-black text-white mb-6 tracking-tight">{study.client}</h4>
+                <span className="text-xs font-black uppercase tracking-widest text-indigo-400 mb-3 sm:mb-4 inline-block">{study.type}</span>
+                <h4 className="text-2xl sm:text-4xl font-black text-white mb-4 sm:mb-6 tracking-tight uppercase">{study.client}</h4>
                 
-                <div className="space-y-6">
+                <div className="space-y-5 sm:space-y-6">
                   <div className="flex gap-4">
-                    <div className="w-6 h-6 rounded-full bg-red-500/10 flex items-center justify-center shrink-0 mt-1">
-                      <div className="w-2 h-2 rounded-full bg-red-500" />
+                    <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-red-500/10 flex items-center justify-center shrink-0 mt-1">
+                      <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-red-500" />
                     </div>
                     <div>
                       <p className="text-[10px] uppercase font-black tracking-widest text-slate-500 mb-1">The Problem</p>
@@ -80,8 +80,8 @@ export const Portfolio: React.FC = () => {
                   </div>
 
                   <div className="flex gap-4">
-                    <div className="w-6 h-6 rounded-full bg-indigo-500/10 flex items-center justify-center shrink-0 mt-1">
-                      <div className="w-2 h-2 rounded-full bg-indigo-500" />
+                    <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-indigo-500/10 flex items-center justify-center shrink-0 mt-1">
+                      <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-indigo-500" />
                     </div>
                     <div>
                       <p className="text-[10px] uppercase font-black tracking-widest text-slate-500 mb-1">Our Solution</p>
@@ -90,7 +90,7 @@ export const Portfolio: React.FC = () => {
                   </div>
 
                   <div className="flex gap-4">
-                    <div className="w-6 h-6 rounded-full bg-emerald-500/10 flex items-center justify-center shrink-0 mt-1">
+                    <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-emerald-500/10 flex items-center justify-center shrink-0 mt-1">
                       <CheckCircle2 size={16} className="text-emerald-500" />
                     </div>
                     <div>

@@ -1,6 +1,6 @@
 {
-  "name": "Nexus Growth Agency",
-  "short_name": "Nexus",
+  "name": "SF Growth Agency",
+  "short_name": "SF Growth",
   "description": "Elite Digital Marketing and SEO Agency",
   "start_url": "/",
   "display": "standalone",
@@ -8,14 +8,9 @@
   "theme_color": "#4f46e5",
   "icons": [
     {
-      "src": "https://picsum.photos/seed/nexus/192/192",
-      "sizes": "192x192",
-      "type": "image/png"
-    },
-    {
-      "src": "https://picsum.photos/seed/nexus/512/512",
-      "sizes": "512x512",
-      "type": "image/png"
+      "src": "/logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
     }
   ]
 }

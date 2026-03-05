@@ -13,7 +13,7 @@ export const PrivacyPolicy: React.FC<PrivacyPolicyProps> = ({ onBack }) => {
         onClick={onBack}
         className="flex items-center gap-2 text-indigo-400 font-bold uppercase text-[9px] sm:text-[10px] tracking-widest mb-10 sm:mb-12 hover:text-white transition-colors group"
       >
-        <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" /> Back to Nexus Growth
+        <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" /> Back to SF Growth
       </button>
 
       <header className="mb-12 sm:mb-16">
@@ -40,7 +40,7 @@ export const PrivacyPolicy: React.FC<PrivacyPolicyProps> = ({ onBack }) => {
         <div className="text-slate-300 space-y-8">
           <section>
             <h2><Eye size={24} className="text-indigo-500" /> 1. Information We Collect</h2>
-            <p>At Nexus Growth Agency, we collect information that you provide directly to us when you fill out our strategy forms, contact us, or sign up for our insights. This may include:</p>
+            <p>At SF Growth Agency, we collect information that you provide directly to us when you fill out our strategy forms, contact us, or sign up for our insights. This may include:</p>
             <ul>
               <li><strong>Identity Data:</strong> Name, job title, and company name.</li>
               <li><strong>Contact Data:</strong> Email address and phone number.</li>
@@ -62,7 +62,7 @@ export const PrivacyPolicy: React.FC<PrivacyPolicyProps> = ({ onBack }) => {
 
           <section>
             <h2><Shield size={24} className="text-emerald-500" /> 3. Data Security</h2>
-            <p>Nexus Growth employs industry-standard encryption and security protocols to protect your data. We treat your business information as a high-value asset. We do not sell, trade, or rent your personal identification information to others.</p>
+            <p>SF Growth employs industry-standard encryption and security protocols to protect your data. We treat your business information as a high-value asset. We do not sell, trade, or rent your personal identification information to others.</p>
           </section>
 
           <section>
@@ -72,7 +72,7 @@ export const PrivacyPolicy: React.FC<PrivacyPolicyProps> = ({ onBack }) => {
 
           <section className="pt-10 border-t border-white/5">
             <p className="text-sm italic text-slate-500">
-              By using the Nexus Growth website, you signify your acceptance of this policy. We reserve the right to update this policy as the digital landscape evolves.
+              By using the SF Growth website, you signify your acceptance of this policy. We reserve the right to update this policy as the digital landscape evolves.
             </p>
           </section>
         </div>

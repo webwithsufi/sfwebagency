@@ -21,12 +21,12 @@ export const Footer: React.FC<FooterProps> = ({ onShowPrivacy }) => {
         <div className="grid md:grid-cols-4 gap-12 mb-16">
           <div className="col-span-2 md:col-span-1">
             <div className="flex items-center gap-2 mb-6">
-              <div className="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center">
-                <Zap size={18} className="text-white fill-current" />
+              <div className="w-12 h-12 rounded-lg flex items-center justify-center">
+                <img src="/logo.svg" alt="Logo" className="w-full h-full object-contain" />
               </div>
-              <span className="text-xl font-extrabold tracking-tight text-white uppercase">Nexus<span className="text-indigo-400">Growth</span></span>
+              <span className="text-2xl font-extrabold tracking-tight text-white uppercase">SF<span className="text-indigo-400">Growth</span></span>
             </div>
-            <p className="text-gray-500 text-sm leading-relaxed mb-6 font-medium">
+            <p className="text-gray-500 text-base leading-relaxed mb-6 font-medium">
               Empowering global brands through high-performance digital strategy and precision engineering.
             </p>
             <div className="flex gap-4">
@@ -37,8 +37,8 @@ export const Footer: React.FC<FooterProps> = ({ onShowPrivacy }) => {
           </div>
 
           <div>
-            <h4 className="text-white font-bold mb-6 uppercase text-[10px] tracking-widest">Our Agency</h4>
-            <ul className="space-y-4 text-xs text-gray-500 font-bold">
+            <h4 className="text-white font-bold mb-6 uppercase text-xs tracking-widest">Our Agency</h4>
+            <ul className="space-y-4 text-sm text-gray-500 font-bold">
               <li><a href="#about" onClick={(e) => scrollToSection(e, '#about')} className="hover:text-indigo-400 transition-colors uppercase tracking-widest">About Our Mission</a></li>
               <li><a href="#services" onClick={(e) => scrollToSection(e, '#services')} className="hover:text-indigo-400 transition-colors uppercase tracking-widest">Our Services</a></li>
               <li><a href="#blog" onClick={(e) => scrollToSection(e, '#blog')} className="hover:text-indigo-400 transition-colors uppercase tracking-widest">Growth Insights</a></li>
@@ -47,8 +47,8 @@ export const Footer: React.FC<FooterProps> = ({ onShowPrivacy }) => {
           </div>
 
           <div>
-            <h4 className="text-white font-bold mb-6 uppercase text-[10px] tracking-widest">Services</h4>
-            <ul className="space-y-4 text-xs text-gray-500 font-bold">
+            <h4 className="text-white font-bold mb-6 uppercase text-xs tracking-widest">Services</h4>
+            <ul className="space-y-4 text-sm text-gray-500 font-bold">
               <li><a href="#services" onClick={(e) => scrollToSection(e, '#services')} className="hover:text-indigo-400 transition-colors uppercase tracking-widest">SEO Mastery</a></li>
               <li><a href="#services" onClick={(e) => scrollToSection(e, '#services')} className="hover:text-indigo-400 transition-colors uppercase tracking-widest">Web Engineering</a></li>
               <li><a href="#services" onClick={(e) => scrollToSection(e, '#services')} className="hover:text-indigo-400 transition-colors uppercase tracking-widest">Google & FB Ads</a></li>
@@ -57,12 +57,12 @@ export const Footer: React.FC<FooterProps> = ({ onShowPrivacy }) => {
           </div>
 
           <div>
-            <h4 className="text-white font-bold mb-6 uppercase text-[10px] tracking-widest">Direct Contact</h4>
-            <p className="text-xs text-gray-500 mb-4 font-bold uppercase tracking-widest leading-relaxed">Ready to scale? <br/>dmwithsufi@gmail.com</p>
+            <h4 className="text-white font-bold mb-6 uppercase text-xs tracking-widest">Direct Contact</h4>
+            <p className="text-sm text-gray-500 mb-4 font-bold uppercase tracking-widest leading-relaxed">Ready to scale? <br/>dmwithsufi@gmail.com</p>
             <div className="flex flex-col gap-2">
               <button 
                 onClick={() => document.getElementById('contact')?.scrollIntoView({behavior: 'smooth'})}
-                className="bg-indigo-600 text-white px-6 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-indigo-500 transition-colors shadow-lg shadow-indigo-600/20"
+                className="bg-indigo-600 text-white px-6 py-4 rounded-xl text-xs font-black uppercase tracking-widest hover:bg-indigo-500 transition-colors shadow-lg shadow-indigo-600/20"
               >
                 Book a Strategy Call
               </button>
@@ -70,8 +70,8 @@ export const Footer: React.FC<FooterProps> = ({ onShowPrivacy }) => {
           </div>
         </div>
 
-        <div className="pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 text-[9px] text-gray-600 font-black uppercase tracking-[0.2em]">
-          <p>© 2024 Nexus Growth Agency. All results are data-driven.</p>
+        <div className="pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] text-gray-600 font-black uppercase tracking-[0.2em]">
+          <p>© 2024 SF Growth Agency. All results are data-driven.</p>
           <div className="flex gap-6">
             <button onClick={onShowPrivacy} className="hover:text-white transition-colors uppercase tracking-widest">Privacy</button>
             <a href="#" className="hover:text-white transition-colors">Terms</a>
