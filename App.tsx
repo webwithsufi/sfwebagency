@@ -1,7 +1,5 @@
 
 import React, { useState, useEffect } from 'react';
-import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
-import { Helmet } from 'react-helmet-async';
 import { Navbar } from './components/Navbar.tsx';
 import { Hero } from './components/Hero.tsx';
 import { About } from './components/About.tsx';
@@ -16,73 +14,12 @@ import { Contact } from './components/Contact.tsx';
 import { Footer } from './components/Footer.tsx';
 import { PrivacyPolicy } from './components/PrivacyPolicy.tsx';
 
-// Scroll to top on route change
-const ScrollToTop = () => {
-  const { pathname } = useLocation();
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [pathname]);
-  return null;
-};
-
-const Home = ({ onSelectService, onReadPost }: any) => (
-  <>
-    <Helmet>
-      <title>SF Growth Agency | Elite SEO, Web Dev & Digital Marketing</title>
-      <meta name="description" content="SF Growth Agency is a premium digital agency specializing in aggressive SEO, high-performance web engineering, and data-driven marketing strategies to scale your business." />
-      <link rel="canonical" href="https://sf-growth-agency.vercel.app/" />
-    </Helmet>
-    <Hero />
-    <section id="about">
-      <About />
-    </section>
-    <section id="services">
-      <Services onSelectService={onSelectService} />
-    </section>
-    <section id="portfolio">
-      <Portfolio />
-    </section>
-    <section id="ai-strategy" className="py-20 relative">
-      <div className="absolute inset-0 bg-indigo-500/[0.02] -z-10" />
-      <GrowthTool />
-    </section>
-    <section id="blog">
-      <Blog onReadPost={onReadPost} />
-    </section>
-    <section id="testimonials">
-      <Testimonials />
-    </section>
-    <section id="contact">
-      <Contact />
-    </section>
-  </>
-);
-
 const App: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
-  const navigate = useNavigate();
-  const location = useLocation();
-
-  useEffect(() => {
-    if (location.pathname === '/' && location.state?.scrollTo) {
-      const targetId = location.state.scrollTo;
-      setTimeout(() => {
-        const element = document.getElementById(targetId);
-        if (element) {
-          const offset = 80;
-          const elementPosition = element.getBoundingClientRect().top;
-          const offsetPosition = elementPosition + window.pageYOffset - offset;
-          window.scrollTo({
-            top: offsetPosition,
-            behavior: 'smooth'
-          });
-        }
-        // Clear state to prevent re-scroll on refresh
-        navigate(location.pathname, { replace: true, state: {} });
-      }, 100);
-    }
-  }, [location, navigate]);
+  const [currentPost, setCurrentPost] = useState<any>(null);
+  const [currentService, setCurrentService] = useState<any>(null);
+  const [showPrivacy, setShowPrivacy] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -97,35 +34,81 @@ const App: React.FC = () => {
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, []);
+  }, [currentPost, currentService, showPrivacy]);
 
   const handleReadBlog = (post: any) => {
-    navigate(`/blog/${post.id}`, { state: { post } });
+    setCurrentPost(post);
+    setCurrentService(null);
+    setShowPrivacy(false);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleSelectService = (service: any) => {
-    navigate(`/services/${service.slug}`, { state: { service } });
+    setCurrentService(service);
+    setCurrentPost(null);
+    setShowPrivacy(false);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleShowPrivacy = () => {
-    navigate('/privacy');
+    setShowPrivacy(true);
+    setCurrentPost(null);
+    setCurrentService(null);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleBackToHome = (targetId?: string) => {
-    navigate('/');
+    setCurrentPost(null);
+    setCurrentService(null);
+    setShowPrivacy(false);
     if (targetId) {
       setTimeout(() => {
         const element = document.getElementById(targetId.replace('#', ''));
         if (element) {
           element.scrollIntoView({ behavior: 'smooth' });
         }
-      }, 100);
+      }, 50);
     }
   };
 
+  if (showPrivacy) {
+    return (
+      <div className="min-h-screen bg-[#020617] selection:bg-indigo-500/30 selection:text-indigo-200">
+        <Navbar scrolled={true} />
+        <main className="pt-20">
+          <PrivacyPolicy onBack={() => handleBackToHome()} />
+        </main>
+        <Footer onShowPrivacy={handleShowPrivacy} />
+      </div>
+    );
+  }
+
+  if (currentPost) {
+    return (
+      <div className="min-h-screen bg-[#020617] selection:bg-indigo-500/30 selection:text-indigo-200">
+        <Navbar scrolled={true} />
+        <main className="pt-20">
+          <BlogPost post={currentPost} onBack={handleBackToHome} />
+        </main>
+        <Footer onShowPrivacy={handleShowPrivacy} />
+      </div>
+    );
+  }
+
+  if (currentService) {
+    return (
+      <div className="min-h-screen bg-[#020617] selection:bg-indigo-500/30 selection:text-indigo-200">
+        <Navbar scrolled={true} />
+        <main className="pt-20">
+          <ServiceDetail service={currentService} onBack={handleBackToHome} />
+        </main>
+        <Footer onShowPrivacy={handleShowPrivacy} />
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-[#020617] selection:bg-indigo-500/30 selection:text-indigo-200 relative">
-      <ScrollToTop />
       <div 
         className="fixed top-0 left-0 h-1 accent-gradient z-[100] transition-all duration-150" 
         style={{ width: `${scrollProgress}%` }}
@@ -138,15 +121,32 @@ const App: React.FC = () => {
         <div className="aurora-sphere w-[350px] h-[350px] sm:w-[600px] sm:h-[600px] bg-blue-600/10 -bottom-20 left-[20%]" />
       </div>
 
-      <Navbar scrolled={scrolled || location.pathname !== '/'} />
+      <Navbar scrolled={scrolled} />
       
-      <main className={location.pathname !== '/' ? 'pt-20' : ''}>
-        <Routes>
-          <Route path="/" element={<Home onSelectService={handleSelectService} onReadPost={handleReadBlog} />} />
-          <Route path="/blog/:id" element={<BlogPost onBack={handleBackToHome} />} />
-          <Route path="/services/:id" element={<ServiceDetail onBack={handleBackToHome} />} />
-          <Route path="/privacy" element={<PrivacyPolicy onBack={() => handleBackToHome()} />} />
-        </Routes>
+      <main>
+        <Hero />
+        <section id="about">
+          <About />
+        </section>
+        <section id="services">
+          <Services onSelectService={handleSelectService} />
+        </section>
+        <section id="portfolio">
+          <Portfolio />
+        </section>
+        <section id="ai-strategy" className="py-20 relative">
+          <div className="absolute inset-0 bg-indigo-500/[0.02] -z-10" />
+          <GrowthTool />
+        </section>
+        <section id="blog">
+          <Blog onReadPost={handleReadBlog} />
+        </section>
+        <section id="testimonials">
+          <Testimonials />
+        </section>
+        <section id="contact">
+          <Contact />
+        </section>
       </main>
 
       <Footer onShowPrivacy={handleShowPrivacy} />

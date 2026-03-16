@@ -1,6 +1,5 @@
 
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Menu, Zap, Sparkles, X, ArrowRight, BookOpen, Info } from 'lucide-react';
 
 interface NavbarProps {
@@ -9,8 +8,6 @@ interface NavbarProps {
 
 export const Navbar: React.FC<NavbarProps> = ({ scrolled }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const location = useLocation();
-  const navigate = useNavigate();
 
   // Close mobile menu on resize to prevent layout ghosting
   useEffect(() => {
@@ -30,16 +27,8 @@ export const Navbar: React.FC<NavbarProps> = ({ scrolled }) => {
     }
   }, [mobileMenuOpen]);
 
-  const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>, id: string) => {
+  const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     e.preventDefault();
-    setMobileMenuOpen(false);
-
-    if (location.pathname !== '/') {
-      navigate('/', { state: { scrollTo: id.replace('#', '') } });
-      // App.tsx handles the scrolling via useEffect or programmatic navigation
-      return;
-    }
-
     const element = document.getElementById(id.replace('#', ''));
     if (element) {
       const offset = 80;
@@ -53,6 +42,7 @@ export const Navbar: React.FC<NavbarProps> = ({ scrolled }) => {
     } else if (id === '#') {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
+    setMobileMenuOpen(false);
   };
 
   const navLinks = [
@@ -71,11 +61,11 @@ export const Navbar: React.FC<NavbarProps> = ({ scrolled }) => {
             ? 'py-2.5 md:py-3 bg-gray-950/80 backdrop-blur-2xl border border-white/10 rounded-full shadow-[0_20px_50px_-15px_rgba(0,0,0,0.5)]' 
             : 'py-4 bg-transparent border border-transparent'
         }`}>
-          <Link to="/" onClick={(e) => scrollToSection(e, '#')} className="flex items-center gap-2 group cursor-pointer shrink-0">
+          <a href="#" onClick={(e) => scrollToSection(e, '#')} className="flex items-center gap-2 group cursor-pointer shrink-0">
             <div className="w-12 h-12 md:w-16 md:h-16 rounded-lg flex items-center justify-center transition-transform group-hover:scale-110">
               <img src="/logo.svg" alt="SF Growth Agency Logo" className="w-full h-full object-contain" />
             </div>
-          </Link>
+          </a>
 
           <div className="hidden md:flex items-center gap-6 text-[10px] font-black tracking-[0.2em] uppercase text-gray-400">
             {navLinks.map((link) => (
