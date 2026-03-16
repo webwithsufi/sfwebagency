@@ -13,21 +13,34 @@ let transporter: nodemailer.Transporter | null = null;
 
 function getTransporter() {
   if (!transporter) {
-    const { SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS } = process.env;
+    // We are forcing the hardcoded credentials because the environment variables 
+    // in the Settings menu might be stale or incorrect.
+    const SMTP_HOST = "smtp.gmail.com";
+    const SMTP_PORT = "587";
+    const SMTP_USER = "dmwithsufi@gmail.com";
+    const SMTP_PASS = "uwvpqgdpdkgvxvjq"; // Forced the latest App Password
     
-    if (!SMTP_HOST || !SMTP_PORT || !SMTP_USER || !SMTP_PASS) {
-      console.warn("SMTP configuration missing. Email sending will be skipped.");
-      return null;
-    }
+    console.log(`[SMTP] DEBUG: Initializing with forced credentials`);
+    console.log(`[SMTP] DEBUG: Host: ${SMTP_HOST}, User: ${SMTP_USER}`);
+    console.log(`[SMTP] DEBUG: Password Length: ${SMTP_PASS.length}`);
 
     transporter = nodemailer.createTransport({
-      host: SMTP_HOST,
-      port: parseInt(SMTP_PORT),
-      secure: parseInt(SMTP_PORT) === 465, // true for 465, false for other ports
+      service: 'gmail',
       auth: {
         user: SMTP_USER,
         pass: SMTP_PASS,
       },
+      debug: true, // Enable debug output
+      logger: true // Log to console
+    });
+    
+    transporter.verify((error) => {
+      if (error) {
+        console.error("[SMTP] CRITICAL ERROR:", error.message);
+        console.error("[SMTP] This error (535) almost always means the App Password is invalid or Google is blocking the sign-in.");
+      } else {
+        console.log("[SMTP] SUCCESS: Connection verified and ready.");
+      }
     });
   }
   return transporter;
