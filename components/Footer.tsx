@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Zap, Github, Twitter, Linkedin, Instagram } from 'lucide-react';
 
 interface FooterProps {
@@ -7,7 +8,7 @@ interface FooterProps {
 }
 
 export const Footer: React.FC<FooterProps> = ({ onShowPrivacy }) => {
-  const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+  const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>, id: string) => {
     e.preventDefault();
     const element = document.getElementById(id.replace('#', ''));
     if (element) {
@@ -20,12 +21,12 @@ export const Footer: React.FC<FooterProps> = ({ onShowPrivacy }) => {
       <div className="max-w-7xl mx-auto px-4 md:px-8">
         <div className="grid md:grid-cols-4 gap-12 mb-16">
           <div className="col-span-2 md:col-span-1">
-            <div className="flex items-center gap-2 mb-6">
+            <Link to="/" className="flex items-center gap-2 mb-6">
               <div className="w-12 h-12 rounded-lg flex items-center justify-center">
                 <img src="/logo.svg" alt="Logo" className="w-full h-full object-contain" />
               </div>
               <span className="text-2xl font-extrabold tracking-tight text-white uppercase">SF<span className="text-indigo-400">Growth</span></span>
-            </div>
+            </Link>
             <p className="text-gray-500 text-base leading-relaxed mb-6 font-medium">
               Empowering global brands through high-performance digital strategy and precision engineering.
             </p>
@@ -73,7 +74,7 @@ export const Footer: React.FC<FooterProps> = ({ onShowPrivacy }) => {
         <div className="pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] text-gray-600 font-black uppercase tracking-[0.2em]">
           <p>© 2024 SF Growth Agency. All results are data-driven.</p>
           <div className="flex gap-6">
-            <button onClick={onShowPrivacy} className="hover:text-white transition-colors uppercase tracking-widest">Privacy</button>
+            <Link to="/privacy" className="hover:text-white transition-colors uppercase tracking-widest">Privacy</Link>
             <a href="#" className="hover:text-white transition-colors">Terms</a>
             <a href="#" className="hover:text-white transition-colors">Cookies</a>
           </div>

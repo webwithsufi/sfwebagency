@@ -1,8 +1,9 @@
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Search, Code, TrendingUp, MousePointer2, Users, Target } from 'lucide-react';
 
-const services = [
+export const services = [
   {
     slug: "web-engineering",
     icon: <Code className="w-6 h-6 text-purple-400" />,
@@ -158,9 +159,10 @@ export const Services: React.FC<ServicesProps> = ({ onSelectService }) => {
 
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
         {services.map((service, index) => (
-          <div 
+          <Link 
             key={index} 
-            onClick={() => onSelectService?.(service)}
+            to={`/services/${service.slug}`}
+            state={{ service }}
             className="group p-8 sm:p-10 glass-card rounded-[2rem] sm:rounded-[2.5rem] flex flex-col h-full cursor-pointer hover:border-indigo-500/30 transition-all duration-500"
           >
             <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mb-6 sm:mb-8 group-hover:bg-indigo-600/20 group-hover:border-indigo-500/30 transition-all duration-500">
@@ -180,7 +182,7 @@ export const Services: React.FC<ServicesProps> = ({ onSelectService }) => {
                 Learn More <span>→</span>
               </div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </div>

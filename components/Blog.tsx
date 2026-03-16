@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { ArrowRight, ExternalLink, Loader2 } from 'lucide-react';
 
 interface BlogProps {
@@ -64,12 +65,13 @@ export const Blog: React.FC<BlogProps> = ({ onReadPost }) => {
               </p>
               
               <div className="pt-8 border-t border-white/5 flex items-center justify-between">
-                <button 
-                  onClick={() => onReadPost(post)}
+                <Link 
+                  to={`/blog/${post.id}`}
+                  state={{ post }}
                   className="text-white text-[11px] font-black uppercase tracking-widest flex items-center gap-2 group/btn"
                 >
                   Read Full Guide <ArrowRight size={14} className="group-hover/btn:translate-x-1 transition-transform" />
-                </button>
+                </Link>
                 <button 
                   onClick={() => scrollToId(post.target)}
                   className="text-slate-600 hover:text-emerald-400 transition-colors"

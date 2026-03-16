@@ -1,58 +1,40 @@
 
-import React, { useRef, useEffect } from 'react';
-import { ArrowLeft, Calendar, User, Share2, Clock } from 'lucide-react';
+import React, { useRef, useEffect, useState } from 'react';
+import { useParams, useLocation } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
+import { ArrowLeft, Calendar, User, Share2, Clock, Loader2 } from 'lucide-react';
 
 interface BlogPostProps {
-  post: {
-    title: string;
-    category: string;
-    author: string;
-    date: string;
-    content: string;
-    excerpt: string;
-    image: string;
-  };
   onBack: (targetId?: string) => void;
 }
 
-export const BlogPost: React.FC<BlogPostProps> = ({ post, onBack }) => {
+export const BlogPost: React.FC<BlogPostProps> = ({ onBack }) => {
+  const { id } = useParams<{ id: string }>();
+  const location = useLocation();
+  const [post, setPost] = useState<any>(location.state?.post || null);
+  const [loading, setLoading] = useState(!post);
   const contentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Store original meta tags to restore them later
-    const originalTitle = document.title;
-    const metaDescription = document.querySelector('meta[name="description"]');
-    const originalDescription = metaDescription?.getAttribute('content') || '';
-    
-    const ogTitle = document.querySelector('meta[property="og:title"]');
-    const originalOgTitle = ogTitle?.getAttribute('content') || '';
-    
-    const ogDescription = document.querySelector('meta[property="og:description"]');
-    const originalOgDescription = ogDescription?.getAttribute('content') || '';
-    
-    const ogImage = document.querySelector('meta[property="og:image"]');
-    const originalOgImage = ogImage?.getAttribute('content') || '';
-    
-    const twitterTitle = document.querySelector('meta[property="twitter:title"]');
-    const originalTwitterTitle = twitterTitle?.getAttribute('content') || '';
-    
-    const twitterDescription = document.querySelector('meta[property="twitter:description"]');
-    const originalTwitterDescription = twitterDescription?.getAttribute('content') || '';
-    
-    const twitterImage = document.querySelector('meta[property="twitter:image"]');
-    const originalTwitterImage = twitterImage?.getAttribute('content') || '';
+    if (!post && id) {
+      const fetchPost = async () => {
+        try {
+          const response = await fetch(`/api/posts/${id}`);
+          if (response.ok) {
+            const data = await response.json();
+            setPost(data);
+          }
+        } catch (error) {
+          console.error("Failed to fetch post:", error);
+        } finally {
+          setLoading(false);
+        }
+      };
+      fetchPost();
+    }
+  }, [id, post]);
 
-    // Update meta tags for the current post
-    const fullTitle = `${post.title} | SF Growth Insights`;
-    document.title = fullTitle;
-    metaDescription?.setAttribute('content', post.excerpt);
-    ogTitle?.setAttribute('content', fullTitle);
-    ogDescription?.setAttribute('content', post.excerpt);
-    ogImage?.setAttribute('content', post.image);
-    twitterTitle?.setAttribute('content', fullTitle);
-    twitterDescription?.setAttribute('content', post.excerpt);
-    twitterImage?.setAttribute('content', post.image);
-
+  useEffect(() => {
     const handleLinkClick = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
       const anchor = target.closest('a');
@@ -70,24 +52,46 @@ export const BlogPost: React.FC<BlogPostProps> = ({ post, onBack }) => {
     }
 
     return () => {
-      // Restore original meta tags on unmount
-      document.title = originalTitle;
-      metaDescription?.setAttribute('content', originalDescription);
-      ogTitle?.setAttribute('content', originalOgTitle);
-      ogDescription?.setAttribute('content', originalOgDescription);
-      ogImage?.setAttribute('content', originalOgImage);
-      twitterTitle?.setAttribute('content', originalTwitterTitle);
-      twitterDescription?.setAttribute('content', originalTwitterDescription);
-      twitterImage?.setAttribute('content', originalTwitterImage);
-
       if (contentEl) {
         contentEl.removeEventListener('click', handleLinkClick);
       }
     };
-  }, [post, onBack]);
+  }, [onBack]);
+
+  if (loading) {
+    return (
+      <div className="max-w-4xl mx-auto px-6 md:px-8 py-32 flex flex-col items-center justify-center min-h-[60vh]">
+        <Loader2 className="w-10 h-10 text-indigo-500 animate-spin mb-4" />
+        <p className="text-slate-500 font-bold uppercase tracking-widest text-xs">Loading Article...</p>
+      </div>
+    );
+  }
+
+  if (!post) {
+    return (
+      <div className="max-w-4xl mx-auto px-6 md:px-8 py-32 text-center">
+        <h2 className="text-2xl font-bold text-white mb-4">Post Not Found</h2>
+        <button onClick={() => onBack()} className="text-indigo-400 font-bold uppercase text-xs tracking-widest">
+          Back to Home
+        </button>
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-4xl mx-auto px-6 md:px-8 py-12 sm:py-20 animate-in fade-in slide-in-from-bottom-10 duration-700">
+      <Helmet>
+        <title>{post.title} | SF Growth Insights</title>
+        <meta name="description" content={post.excerpt} />
+        <link rel="canonical" href={`https://sf-growth-agency.vercel.app/blog/${id}`} />
+        <meta property="og:title" content={`${post.title} | SF Growth Insights`} />
+        <meta property="og:description" content={post.excerpt} />
+        <meta property="og:image" content={post.image} />
+        <meta name="twitter:title" content={`${post.title} | SF Growth Insights`} />
+        <meta name="twitter:description" content={post.excerpt} />
+        <meta name="twitter:image" content={post.image} />
+      </Helmet>
+
       <button 
         onClick={() => onBack()}
         className="flex items-center gap-2 text-indigo-400 font-bold uppercase text-[9px] sm:text-[10px] tracking-widest mb-10 sm:mb-12 hover:text-white transition-colors group"

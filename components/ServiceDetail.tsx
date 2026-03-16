@@ -1,34 +1,38 @@
 
-import React, { useEffect } from 'react';
+import React from 'react';
+import { useParams, useLocation } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import { ArrowLeft, CheckCircle2, ArrowRight } from 'lucide-react';
+import { services } from './Services.tsx';
 
 interface ServiceDetailProps {
-  service: {
-    slug: string;
-    icon: React.ReactNode;
-    title: string;
-    description: string;
-    outcome: string;
-    longDescription: string;
-    features: string[];
-    benefits: string[];
-  };
   onBack: (targetId?: string) => void;
 }
 
-export const ServiceDetail: React.FC<ServiceDetailProps> = ({ service, onBack }) => {
-  useEffect(() => {
-    const originalTitle = document.title;
-    document.title = `${service.title} | SF Growth Agency`;
-    window.scrollTo(0, 0);
-    
-    return () => {
-      document.title = originalTitle;
-    };
-  }, [service]);
+export const ServiceDetail: React.FC<ServiceDetailProps> = ({ onBack }) => {
+  const { id } = useParams<{ id: string }>();
+  const location = useLocation();
+  const service = location.state?.service || services.find(s => s.slug === id);
+
+  if (!service) {
+    return (
+      <div className="max-w-5xl mx-auto px-6 md:px-8 py-32 text-center">
+        <h2 className="text-2xl font-bold text-white mb-4">Service Not Found</h2>
+        <button onClick={() => onBack()} className="text-indigo-400 font-bold uppercase text-xs tracking-widest">
+          Back to Home
+        </button>
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-5xl mx-auto px-6 md:px-8 py-12 sm:py-20 animate-in fade-in slide-in-from-bottom-10 duration-700">
+      <Helmet>
+        <title>{service.title} | SF Growth Agency</title>
+        <meta name="description" content={service.description} />
+        <link rel="canonical" href={`https://sf-growth-agency.vercel.app/services/${id}`} />
+      </Helmet>
+
       <button 
         onClick={() => onBack()}
         className="flex items-center gap-2 text-indigo-400 font-bold uppercase text-[10px] tracking-widest mb-12 hover:text-white transition-colors group"
