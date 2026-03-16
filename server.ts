@@ -8,6 +8,14 @@ import nodemailer from "nodemailer";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+const app = express();
+const PORT = 3000;
+
+app.use(express.json());
+
+// Export app for Vercel
+export default app;
+
 // Lazy initialization for nodemailer transporter
 let transporter: nodemailer.Transporter | null = null;
 
@@ -15,14 +23,12 @@ function getTransporter() {
   if (!transporter) {
     // We are forcing the hardcoded credentials because the environment variables 
     // in the Settings menu might be stale or incorrect.
-    const SMTP_HOST = "smtp.gmail.com";
-    const SMTP_PORT = "587";
-    const SMTP_USER = "dmwithsufi@gmail.com";
-    const SMTP_PASS = "uwvpqgdpdkgvxvjq"; // Forced the latest App Password
+    const SMTP_HOST = (process.env.SMTP_HOST || "smtp.gmail.com").trim();
+    const SMTP_PORT = (process.env.SMTP_PORT || "587").trim();
+    const SMTP_USER = (process.env.SMTP_USER || "dmwithsufi@gmail.com").trim();
+    const SMTP_PASS = (process.env.SMTP_PASS || "uwvpqgdpdkgvxvjq").trim();
     
-    console.log(`[SMTP] DEBUG: Initializing with forced credentials`);
-    console.log(`[SMTP] DEBUG: Host: ${SMTP_HOST}, User: ${SMTP_USER}`);
-    console.log(`[SMTP] DEBUG: Password Length: ${SMTP_PASS.length}`);
+    console.log(`[SMTP] Initializing for ${SMTP_HOST} (User: ${SMTP_USER})`);
 
     transporter = nodemailer.createTransport({
       service: 'gmail',
@@ -30,16 +36,16 @@ function getTransporter() {
         user: SMTP_USER,
         pass: SMTP_PASS,
       },
-      debug: true, // Enable debug output
-      logger: true // Log to console
+      debug: process.env.NODE_ENV !== "production",
+      logger: process.env.NODE_ENV !== "production"
     });
     
+    // In serverless, verify might be slow, but we'll do it once
     transporter.verify((error) => {
       if (error) {
-        console.error("[SMTP] CRITICAL ERROR:", error.message);
-        console.error("[SMTP] This error (535) almost always means the App Password is invalid or Google is blocking the sign-in.");
+        console.error("[SMTP] Connection Error:", error.message);
       } else {
-        console.log("[SMTP] SUCCESS: Connection verified and ready.");
+        console.log("[SMTP] SUCCESS: Connection verified.");
       }
     });
   }
@@ -47,10 +53,6 @@ function getTransporter() {
 }
 
 async function startServer() {
-  const app = express();
-  const PORT = 3000;
-
-  app.use(express.json());
 
   // Mock Database / Data
   const blogPosts = [
@@ -170,54 +172,62 @@ async function startServer() {
   });
 
   app.post("/api/contact", async (req, res) => {
-    const { name, email, service, budget, message } = req.body;
-    
-    console.log("New Contact Form Submission:", { name, email, service, budget, message });
-    
-    const mailTransporter = getTransporter();
-    const contactEmail = process.env.CONTACT_EMAIL || "dmwithsufi@gmail.com";
+    try {
+      const { name, email, service, budget, message } = req.body;
+      
+      console.log("New Contact Form Submission:", { name, email, service, budget, message });
+      
+      const mailTransporter = getTransporter();
+      const contactEmail = process.env.CONTACT_EMAIL || "dmwithsufi@gmail.com";
 
-    if (mailTransporter) {
-      try {
-        await mailTransporter.sendMail({
-          from: `"SF Growth Agency" <${process.env.SMTP_USER}>`,
-          to: contactEmail,
-          subject: `New Growth Inquiry: ${service} from ${name}`,
-          text: `
-            New Contact Form Submission:
-            
-            Name: ${name}
-            Email: ${email}
-            Service: ${service}
-            Budget: ${budget}
-            Message: ${message}
-          `,
-          html: `
-            <div style="font-family: sans-serif; padding: 20px; color: #333;">
-              <h2 style="color: #4f46e5;">New Growth Inquiry</h2>
-              <p><strong>Name:</strong> ${name}</p>
-              <p><strong>Email:</strong> ${email}</p>
-              <p><strong>Service:</strong> ${service}</p>
-              <p><strong>Budget:</strong> ${budget}</p>
-              <p><strong>Message:</strong></p>
-              <div style="background: #f4f4f4; padding: 15px; border-radius: 8px;">
-                ${message.replace(/\n/g, '<br>')}
+      if (mailTransporter) {
+        try {
+          await mailTransporter.sendMail({
+            from: `"SF Growth Agency" <${process.env.SMTP_USER || "dmwithsufi@gmail.com"}>`,
+            to: contactEmail,
+            subject: `New Growth Inquiry: ${service} from ${name}`,
+            text: `
+              New Contact Form Submission:
+              
+              Name: ${name}
+              Email: ${email}
+              Service: ${service}
+              Budget: ${budget}
+              Message: ${message}
+            `,
+            html: `
+              <div style="font-family: sans-serif; padding: 20px; color: #333;">
+                <h2 style="color: #4f46e5;">New Growth Inquiry</h2>
+                <p><strong>Name:</strong> ${name}</p>
+                <p><strong>Email:</strong> ${email}</p>
+                <p><strong>Service:</strong> ${service}</p>
+                <p><strong>Budget:</strong> ${budget}</p>
+                <p><strong>Message:</strong></p>
+                <div style="background: #f4f4f4; padding: 15px; border-radius: 8px;">
+                  ${message.replace(/\n/g, '<br>')}
+                </div>
               </div>
-            </div>
-          `,
-        });
-        console.log("Email sent successfully to", contactEmail);
-      } catch (error) {
-        console.error("Error sending email:", error);
+            `,
+          });
+          console.log("Email sent successfully to", contactEmail);
+        } catch (emailError: any) {
+          console.error("Error sending email:", emailError);
+          // Return error to client so they know it failed
+          return res.status(500).json({ 
+            error: "Failed to send email. Please try again later.",
+            details: emailError.message 
+          });
+        }
+      } else {
+        console.log("Skipping email send due to missing SMTP config.");
+        return res.status(500).json({ error: "Email service not configured." });
       }
-    } else {
-      console.log("Skipping email send due to missing SMTP config.");
-    }
-    
-    // Simulate processing delay
-    setTimeout(() => {
+      
       res.json({ success: true, message: "Inquiry received. Our growth team will contact you shortly." });
-    }, 500);
+    } catch (err: any) {
+      console.error("Contact API error:", err);
+      res.status(500).json({ error: "Internal server error", details: err.message });
+    }
   });
 
   // Vite middleware for development

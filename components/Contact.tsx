@@ -36,14 +36,25 @@ export const Contact: React.FC = () => {
         }
       });
 
-      const result = await response.json();
+      let result;
+      const contentType = response.headers.get("content-type");
+      if (contentType && contentType.includes("application/json")) {
+        result = await response.json();
+      } else {
+        const text = await response.text();
+        throw new Error(text || `Server error: ${response.status}`);
+      }
 
       if (response.ok) {
         setSubmitted(true);
       } else {
-        throw new Error(result.error || "Submission failed. Please try again.");
+        const errorMessage = typeof result.error === 'object' 
+          ? JSON.stringify(result.error) 
+          : (result.error || "Submission failed. Please try again.");
+        throw new Error(errorMessage);
       }
     } catch (err: any) {
+      console.error("Contact form error:", err);
       setError(err.message || "Connection error. Please try again.");
     } finally {
       setLoading(false);
