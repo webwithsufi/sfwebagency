@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://sf-growth-agency.vercel.app/sitemap.xml
+Sitemap: https://ais-pre-t4eqrud2gdezald763ebt5-278818541891.asia-southeast1.run.app/sitemap.xml

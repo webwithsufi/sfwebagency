@@ -29,11 +29,11 @@ export const About: React.FC = () => {
           </p>
           <div className="flex justify-center lg:justify-start gap-8 sm:gap-10">
             <div className="">
-              <p className="text-4xl sm:text-4xl font-black text-white mb-1">15+</p>
-              <p className="text-xs uppercase font-bold tracking-[0.2em] text-slate-500">Global Partners</p>
+              <p className="text-4xl sm:text-4xl font-black text-white mb-1">250+</p>
+              <p className="text-xs uppercase font-bold tracking-[0.2em] text-slate-500">Global Partners 2026</p>
             </div>
             <div className="">
-              <p className="text-4xl sm:text-4xl font-black text-white mb-1">100%</p>
+              <p className="text-4xl sm:text-4xl font-black text-white mb-1">98%</p>
               <p className="text-xs uppercase font-bold tracking-[0.2em] text-slate-500">Success Rate</p>
             </div>
           </div>

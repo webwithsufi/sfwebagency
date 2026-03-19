@@ -24,11 +24,11 @@ export const GrowthTool: React.FC = () => {
     setResult(null);
 
     try {
-      // Look for API key in multiple possible locations
-      const apiKey = process.env.API_KEY || (import.meta as any).env.VITE_GEMINI_API_KEY;
+      // Use the API key defined in vite.config.ts
+      const apiKey = process.env.GEMINI_API_KEY;
       
       if (!apiKey || apiKey === 'YOUR_API_KEY') {
-        throw new Error("SF AI Core is not configured. Please set VITE_GEMINI_API_KEY in your environment.");
+        throw new Error("SF AI Core is not configured. Please set GEMINI_API_KEY in your environment.");
       }
 
       const ai = new GoogleGenAI({ apiKey });
@@ -83,27 +83,27 @@ export const GrowthTool: React.FC = () => {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4">
-      <div className="relative glass-card p-8 sm:p-20 rounded-[4rem] border-indigo-500/10 overflow-hidden shadow-2xl">
+    <div className="max-w-6xl mx-auto">
+      <div className="relative glass-card p-6 sm:p-12 md:p-20 rounded-[2rem] sm:rounded-[3rem] md:rounded-[4rem] border-indigo-500/10 overflow-hidden shadow-2xl">
         <div className="absolute top-0 right-0 p-12 opacity-5 pointer-events-none">
           <Cpu size={180} className="text-indigo-500" />
         </div>
 
-        <div className="text-center mb-12 sm:mb-16 relative z-10">
-          <div className="w-20 h-20 sm:w-28 sm:h-28 rounded-3xl accent-gradient flex items-center justify-center mx-auto mb-8 sm:mb-10 shadow-[0_25px_50px_-12px_rgba(99,102,241,0.5)] border border-white/20">
-            <Sparkles size={40} className="text-white animate-pulse" />
+        <div className="text-center mb-10 sm:mb-16 relative z-10">
+          <div className="w-16 h-16 sm:w-28 sm:h-28 rounded-2xl sm:rounded-3xl accent-gradient flex items-center justify-center mx-auto mb-6 sm:mb-10 shadow-[0_25px_50px_-12px_rgba(99,102,241,0.5)] border border-white/20">
+            <Sparkles size={32} className="text-white animate-pulse sm:w-10 sm:h-10" />
           </div>
-          <h2 className="text-3xl sm:text-6xl font-black text-white mb-6 tracking-tighter uppercase">AI Strategy Engine</h2>
-          <p className="text-slate-400 text-base sm:text-lg font-medium px-4 max-w-2xl mx-auto leading-relaxed">
+          <h2 className="text-2xl sm:text-4xl md:text-6xl font-black text-white mb-4 sm:mb-6 tracking-tighter uppercase">AI Strategy Engine</h2>
+          <p className="text-slate-400 text-sm sm:text-lg font-medium px-4 max-w-2xl mx-auto leading-relaxed">
             Harness the power of our proprietary SF Intelligence to generate a bespoke growth roadmap for your industry in seconds.
           </p>
         </div>
 
-        <div className="max-w-3xl mx-auto flex flex-col sm:flex-row gap-4 mb-16 sm:mb-20 relative z-10">
+        <div className="max-w-3xl mx-auto flex flex-col sm:flex-row gap-3 sm:gap-4 mb-12 sm:mb-20 relative z-10">
           <input 
             type="text"
             placeholder="Enter your industry (e.g. SaaS)"
-            className="flex-1 bg-white/5 border border-white/10 rounded-2xl px-4 sm:px-8 py-4 sm:py-5 text-white placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all font-bold text-base sm:text-lg"
+            className="flex-1 bg-white/5 border border-white/10 rounded-xl sm:rounded-2xl px-5 sm:px-8 py-4 sm:py-5 text-white placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all font-bold text-sm sm:text-lg"
             value={niche}
             onChange={(e) => {
               setNiche(e.target.value);
@@ -114,9 +114,9 @@ export const GrowthTool: React.FC = () => {
           <button 
             onClick={generateStrategy}
             disabled={loading || !niche}
-            className="px-8 sm:px-12 py-4 sm:py-5 accent-gradient text-white rounded-2xl font-black uppercase tracking-[0.2em] flex items-center justify-center gap-3 transition-all hover:scale-[1.03] active:scale-95 disabled:opacity-50 shadow-[0_20px_40px_-10px_rgba(99,102,241,0.4)] text-xs sm:text-sm whitespace-nowrap"
+            className="px-6 sm:px-12 py-4 sm:py-5 accent-gradient text-white rounded-xl sm:rounded-2xl font-black uppercase tracking-[0.2em] flex items-center justify-center gap-3 transition-all hover:scale-[1.03] active:scale-95 disabled:opacity-50 shadow-[0_20px_40px_-10px_rgba(99,102,241,0.4)] text-[10px] sm:text-sm whitespace-nowrap"
           >
-            {loading ? <Loader2 className="animate-spin" size={20} /> : <Terminal size={20} />}
+            {loading ? <Loader2 className="animate-spin" size={18} /> : <Terminal size={18} />}
             {loading ? 'Synthesizing...' : 'Analyze Market'}
           </button>
         </div>
@@ -148,14 +148,14 @@ export const GrowthTool: React.FC = () => {
                 {/* Card Background with Glow */}
                 <div className="absolute -inset-0.5 bg-gradient-to-br from-indigo-500/20 to-purple-500/20 rounded-[2.5rem] blur opacity-0 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
                 
-                <div className="relative flex flex-col h-full p-8 sm:p-10 bg-[#0a0f1e]/80 backdrop-blur-xl border border-white/5 rounded-[2.5rem] hover:border-indigo-500/40 transition-all duration-500 shadow-2xl overflow-hidden">
+                <div className="relative flex flex-col h-full p-6 sm:p-10 bg-[#0a0f1e]/80 backdrop-blur-xl border border-white/5 rounded-[2rem] sm:rounded-[2.5rem] hover:border-indigo-500/40 transition-all duration-500 shadow-2xl overflow-hidden">
                   {/* Technical Header */}
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 sm:mb-8">
                     <div className="flex flex-wrap items-center gap-3">
-                      <div className="w-8 h-8 rounded-lg bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 font-mono text-xs font-bold shrink-0">
+                      <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 font-mono text-[10px] sm:text-xs font-bold shrink-0">
                         0{i + 1}
                       </div>
-                      <span className={`px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest border ${
+                      <span className={`px-2.5 py-1 rounded-full text-[8px] sm:text-[9px] font-black uppercase tracking-widest border ${
                         strategy.priority === 'High' 
                           ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' 
                           : 'bg-indigo-500/10 text-indigo-400 border-indigo-500/20'
@@ -163,25 +163,25 @@ export const GrowthTool: React.FC = () => {
                         {strategy.priority} Priority
                       </span>
                     </div>
-                    <div className="flex items-center gap-2 text-[9px] text-slate-500 font-black uppercase tracking-widest bg-white/5 px-3 py-1 rounded-full border border-white/5">
+                    <div className="flex items-center gap-2 text-[8px] sm:text-[9px] text-slate-500 font-black uppercase tracking-widest bg-white/5 px-2.5 py-1 rounded-full border border-white/5">
                       <RefreshCw size={10} className="animate-spin-slow shrink-0" />
                       <span className="whitespace-nowrap">{strategy.timeline}</span>
                     </div>
                   </div>
 
                   {/* Title */}
-                  <h4 className="text-xl sm:text-2xl font-black text-white mb-6 leading-tight group-hover:text-indigo-400 transition-colors uppercase tracking-tight">
+                  <h4 className="text-lg sm:text-xl md:text-2xl font-black text-white mb-4 sm:mb-6 leading-tight group-hover:text-indigo-400 transition-colors uppercase tracking-tight">
                     {strategy.title}
                   </h4>
 
                   {/* Points List */}
-                  <div className="space-y-4 flex-grow mb-10">
+                  <div className="space-y-3 sm:space-y-4 flex-grow mb-8 sm:mb-10">
                     {strategy.points.map((p, idx) => (
-                      <div key={idx} className="flex gap-4 group/point">
+                      <div key={idx} className="flex gap-3 sm:gap-4 group/point">
                         <div className="mt-1.5 shrink-0">
-                          <div className="w-1.5 h-1.5 rounded-full bg-indigo-500 group-hover/point:scale-150 transition-transform shadow-[0_0_8px_rgba(99,102,241,0.8)]" />
+                          <div className="w-1 h-1 sm:w-1.5 sm:h-1.5 rounded-full bg-indigo-500 group-hover/point:scale-150 transition-transform shadow-[0_0_8px_rgba(99,102,241,0.8)]" />
                         </div>
-                        <p className="text-sm text-slate-400 leading-relaxed font-medium group-hover/point:text-slate-300 transition-colors">
+                        <p className="text-xs sm:text-sm text-slate-400 leading-relaxed font-medium group-hover/point:text-slate-300 transition-colors">
                           {p}
                         </p>
                       </div>

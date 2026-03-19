@@ -20,17 +20,16 @@ export const Hero: React.FC = () => {
         <div className="flex flex-col items-center text-center">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-indigo-500/20 bg-indigo-500/5 text-indigo-300 text-sm font-black uppercase tracking-[0.3em] mb-8 sm:mb-10 shadow-lg shadow-indigo-500/5">
             <Sparkles size={14} className="animate-pulse text-indigo-400" />
-            <span className="truncate">Global Growth Partners 2024</span>
+            <span className="truncate">Global Growth Partners 2026</span>
           </div>
 
           <h1 className="text-5xl sm:text-7xl md:text-8xl lg:text-[7rem] font-black leading-[0.95] tracking-tighter text-white mb-8 sm:mb-10 uppercase">
-            WE BUILD <br />
-            <span className="gradient-text italic">EMPIRES.</span>
+            WE HELP YOU <br />
+            <span className="gradient-text italic">WIN ON GOOGLE.</span>
           </h1>
           
           <p className="max-w-2xl text-lg sm:text-xl text-slate-400 mb-10 sm:mb-14 leading-relaxed font-medium px-4">
-            High-performance websites that convert visitors into clients. 
-            Modern, fast, and conversion-focused web solutions for startups and ambitious businesses.
+            Stop losing customers to slow websites and bad SEO. We build fast sites and get you to the #1 spot on Google so you can grow your business faster.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 w-full sm:w-auto">

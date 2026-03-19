@@ -1,25 +1,30 @@
 
 import React, { useState, useEffect } from 'react';
+import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
+import { HelmetProvider } from 'react-helmet-async';
 import { Navbar } from './components/Navbar.tsx';
-import { Hero } from './components/Hero.tsx';
-import { About } from './components/About.tsx';
-import { Services } from './components/Services.tsx';
-import { Portfolio } from './components/Portfolio.tsx';
-import { GrowthTool } from './components/GrowthTool.tsx';
-import { Blog } from './components/Blog.tsx';
+import { Home } from './components/Home.tsx';
 import { BlogPost } from './components/BlogPost.tsx';
 import { ServiceDetail } from './components/ServiceDetail.tsx';
-import { Testimonials } from './components/Testimonials.tsx';
-import { Contact } from './components/Contact.tsx';
 import { Footer } from './components/Footer.tsx';
 import { PrivacyPolicy } from './components/PrivacyPolicy.tsx';
+import ServicesPage from './components/ServicesPage.tsx';
+import BlogPage from './components/BlogPage.tsx';
+import { AIStrategyPage } from './components/AIStrategyPage.tsx';
 
 const App: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
-  const [currentPost, setCurrentPost] = useState<any>(null);
-  const [currentService, setCurrentService] = useState<any>(null);
-  const [showPrivacy, setShowPrivacy] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const handleBack = (targetId?: string) => {
+    if (targetId) {
+      navigate('/', { state: { scrollTo: targetId.replace('#', '') } });
+    } else {
+      navigate('/');
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -34,123 +39,53 @@ const App: React.FC = () => {
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, [currentPost, currentService, showPrivacy]);
+  }, []);
 
-  const handleReadBlog = (post: any) => {
-    setCurrentPost(post);
-    setCurrentService(null);
-    setShowPrivacy(false);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  const handleSelectService = (service: any) => {
-    setCurrentService(service);
-    setCurrentPost(null);
-    setShowPrivacy(false);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  const handleShowPrivacy = () => {
-    setShowPrivacy(true);
-    setCurrentPost(null);
-    setCurrentService(null);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  const handleBackToHome = (targetId?: string) => {
-    setCurrentPost(null);
-    setCurrentService(null);
-    setShowPrivacy(false);
-    if (targetId) {
-      setTimeout(() => {
-        const element = document.getElementById(targetId.replace('#', ''));
-        if (element) {
+  useEffect(() => {
+    if (location.pathname === '/' && location.state?.scrollTo) {
+      const element = document.getElementById(location.state.scrollTo);
+      if (element) {
+        setTimeout(() => {
           element.scrollIntoView({ behavior: 'smooth' });
-        }
-      }, 50);
+        }, 100);
+      }
+    } else {
+      window.scrollTo(0, 0);
     }
-  };
-
-  if (showPrivacy) {
-    return (
-      <div className="min-h-screen bg-[#020617] selection:bg-indigo-500/30 selection:text-indigo-200">
-        <Navbar scrolled={true} />
-        <main className="pt-20">
-          <PrivacyPolicy onBack={() => handleBackToHome()} />
-        </main>
-        <Footer onShowPrivacy={handleShowPrivacy} />
-      </div>
-    );
-  }
-
-  if (currentPost) {
-    return (
-      <div className="min-h-screen bg-[#020617] selection:bg-indigo-500/30 selection:text-indigo-200">
-        <Navbar scrolled={true} />
-        <main className="pt-20">
-          <BlogPost post={currentPost} onBack={handleBackToHome} />
-        </main>
-        <Footer onShowPrivacy={handleShowPrivacy} />
-      </div>
-    );
-  }
-
-  if (currentService) {
-    return (
-      <div className="min-h-screen bg-[#020617] selection:bg-indigo-500/30 selection:text-indigo-200">
-        <Navbar scrolled={true} />
-        <main className="pt-20">
-          <ServiceDetail service={currentService} onBack={handleBackToHome} />
-        </main>
-        <Footer onShowPrivacy={handleShowPrivacy} />
-      </div>
-    );
-  }
+  }, [location]);
 
   return (
-    <div className="min-h-screen bg-[#020617] selection:bg-indigo-500/30 selection:text-indigo-200 relative">
-      <div 
-        className="fixed top-0 left-0 h-1 accent-gradient z-[100] transition-all duration-150" 
-        style={{ width: `${scrollProgress}%` }}
-      />
-      
-      {/* Animated Background Spheres Container */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none -z-10">
-        <div className="aurora-sphere w-[300px] h-[300px] sm:w-[500px] sm:h-[500px] bg-indigo-600/20 -top-20 -left-20" />
-        <div className="aurora-sphere w-[250px] h-[250px] sm:w-[400px] sm:h-[400px] bg-purple-600/10 top-[40%] -right-20" />
-        <div className="aurora-sphere w-[350px] h-[350px] sm:w-[600px] sm:h-[600px] bg-blue-600/10 -bottom-20 left-[20%]" />
+    <HelmetProvider>
+      <div className="min-h-screen bg-[#020617] selection:bg-indigo-500/30 selection:text-indigo-200 relative">
+        <div 
+          className="fixed top-0 left-0 h-1 accent-gradient z-[100] transition-all duration-150" 
+          style={{ width: `${scrollProgress}%` }}
+        />
+        
+        {/* Animated Background Spheres Container */}
+        <div className="fixed inset-0 overflow-hidden pointer-events-none -z-10">
+          <div className="aurora-sphere w-[300px] h-[300px] sm:w-[500px] sm:h-[500px] bg-indigo-600/20 -top-20 -left-20" />
+          <div className="aurora-sphere w-[250px] h-[250px] sm:w-[400px] sm:h-[400px] bg-purple-600/10 top-[40%] -right-20" />
+          <div className="aurora-sphere w-[350px] h-[350px] sm:w-[600px] sm:h-[600px] bg-blue-600/10 -bottom-20 left-[20%]" />
+        </div>
+
+        <Navbar scrolled={scrolled || location.pathname !== '/'} />
+        
+        <main className={location.pathname !== '/' ? 'pt-20' : ''}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/services" element={<ServicesPage />} />
+            <Route path="/services/:slug" element={<ServiceDetail />} />
+            <Route path="/blog" element={<BlogPage />} />
+            <Route path="/blog/:id" element={<BlogPost />} />
+            <Route path="/ai-strategy" element={<AIStrategyPage onBack={handleBack} />} />
+            <Route path="/privacy" element={<PrivacyPolicy onBack={() => {}} />} />
+          </Routes>
+        </main>
+
+        <Footer onShowPrivacy={() => {}} />
       </div>
-
-      <Navbar scrolled={scrolled} />
-      
-      <main>
-        <Hero />
-        <section id="about">
-          <About />
-        </section>
-        <section id="services">
-          <Services onSelectService={handleSelectService} />
-        </section>
-        <section id="portfolio">
-          <Portfolio />
-        </section>
-        <section id="ai-strategy" className="py-20 relative">
-          <div className="absolute inset-0 bg-indigo-500/[0.02] -z-10" />
-          <GrowthTool />
-        </section>
-        <section id="blog">
-          <Blog onReadPost={handleReadBlog} />
-        </section>
-        <section id="testimonials">
-          <Testimonials />
-        </section>
-        <section id="contact">
-          <Contact />
-        </section>
-      </main>
-
-      <Footer onShowPrivacy={handleShowPrivacy} />
-    </div>
+    </HelmetProvider>
   );
 };
 

@@ -1,95 +1,64 @@
 
-import React, { useRef, useEffect } from 'react';
-import { ArrowLeft, Calendar, User, Share2, Clock } from 'lucide-react';
+import React, { useRef, useEffect, useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { ArrowLeft, Calendar, User, Share2, Clock, Loader2 } from 'lucide-react';
+import { SEO } from './SEO.tsx';
 
-interface BlogPostProps {
-  post: {
-    title: string;
-    category: string;
-    author: string;
-    date: string;
-    content: string;
-    excerpt: string;
-    image: string;
-  };
-  onBack: (targetId?: string) => void;
-}
-
-export const BlogPost: React.FC<BlogPostProps> = ({ post, onBack }) => {
+export const BlogPost: React.FC = () => {
+  const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
+  const [post, setPost] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
   const contentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Store original meta tags to restore them later
-    const originalTitle = document.title;
-    const metaDescription = document.querySelector('meta[name="description"]');
-    const originalDescription = metaDescription?.getAttribute('content') || '';
-    
-    const ogTitle = document.querySelector('meta[property="og:title"]');
-    const originalOgTitle = ogTitle?.getAttribute('content') || '';
-    
-    const ogDescription = document.querySelector('meta[property="og:description"]');
-    const originalOgDescription = ogDescription?.getAttribute('content') || '';
-    
-    const ogImage = document.querySelector('meta[property="og:image"]');
-    const originalOgImage = ogImage?.getAttribute('content') || '';
-    
-    const twitterTitle = document.querySelector('meta[property="twitter:title"]');
-    const originalTwitterTitle = twitterTitle?.getAttribute('content') || '';
-    
-    const twitterDescription = document.querySelector('meta[property="twitter:description"]');
-    const originalTwitterDescription = twitterDescription?.getAttribute('content') || '';
-    
-    const twitterImage = document.querySelector('meta[property="twitter:image"]');
-    const originalTwitterImage = twitterImage?.getAttribute('content') || '';
-
-    // Update meta tags for the current post
-    const fullTitle = `${post.title} | SF Growth Insights`;
-    document.title = fullTitle;
-    metaDescription?.setAttribute('content', post.excerpt);
-    ogTitle?.setAttribute('content', fullTitle);
-    ogDescription?.setAttribute('content', post.excerpt);
-    ogImage?.setAttribute('content', post.image);
-    twitterTitle?.setAttribute('content', fullTitle);
-    twitterDescription?.setAttribute('content', post.excerpt);
-    twitterImage?.setAttribute('content', post.image);
-
-    const handleLinkClick = (e: MouseEvent) => {
-      const target = e.target as HTMLElement;
-      const anchor = target.closest('a');
-      
-      if (anchor && anchor.getAttribute('href')?.startsWith('#')) {
-        e.preventDefault();
-        const targetId = anchor.getAttribute('href') || '';
-        onBack(targetId);
+    const fetchPost = async () => {
+      try {
+        const response = await fetch(`/api/posts/${id}`);
+        if (!response.ok) throw new Error('Post not found');
+        const data = await response.json();
+        setPost(data);
+      } catch (error) {
+        console.error("Failed to fetch post:", error);
+        navigate('/');
+      } finally {
+        setLoading(false);
       }
     };
+    fetchPost();
+  }, [id, navigate]);
 
-    const contentEl = contentRef.current;
-    if (contentEl) {
-      contentEl.addEventListener('click', handleLinkClick);
+  const handleBack = (targetId?: string) => {
+    if (targetId) {
+      navigate('/', { state: { scrollTo: targetId.replace('#', '') } });
+    } else {
+      navigate(-1);
     }
+  };
 
-    return () => {
-      // Restore original meta tags on unmount
-      document.title = originalTitle;
-      metaDescription?.setAttribute('content', originalDescription);
-      ogTitle?.setAttribute('content', originalOgTitle);
-      ogDescription?.setAttribute('content', originalOgDescription);
-      ogImage?.setAttribute('content', originalOgImage);
-      twitterTitle?.setAttribute('content', originalTwitterTitle);
-      twitterDescription?.setAttribute('content', originalTwitterDescription);
-      twitterImage?.setAttribute('content', originalTwitterImage);
+  if (loading) {
+    return (
+      <div className="max-w-7xl mx-auto px-4 py-32 flex flex-col items-center justify-center min-h-[400px]">
+        <Loader2 className="w-10 h-10 text-indigo-500 animate-spin mb-4" />
+        <p className="text-slate-500 font-bold uppercase tracking-widest text-xs">Loading Article...</p>
+      </div>
+    );
+  }
 
-      if (contentEl) {
-        contentEl.removeEventListener('click', handleLinkClick);
-      }
-    };
-  }, [post, onBack]);
+  if (!post) return null;
 
   return (
     <div className="max-w-4xl mx-auto px-6 md:px-8 py-12 sm:py-20 animate-in fade-in slide-in-from-bottom-10 duration-700">
+      <SEO 
+        title={post.title} 
+        description={post.excerpt} 
+        ogImage={post.image}
+        ogType="article"
+        canonical={`https://ais-pre-t4eqrud2gdezald763ebt5-278818541891.asia-southeast1.run.app/blog/${id}`}
+      />
+      
       <button 
-        onClick={() => onBack()}
+        onClick={() => handleBack()}
         className="flex items-center gap-2 text-indigo-400 font-bold uppercase text-[9px] sm:text-[10px] tracking-widest mb-10 sm:mb-12 hover:text-white transition-colors group"
       >
         <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" /> Back to SF Growth
@@ -166,6 +135,9 @@ export const BlogPost: React.FC<BlogPostProps> = ({ post, onBack }) => {
           .prose-container strong { color: white; font-weight: 700; }
           .prose-container a { color: #818cf8; text-decoration: none; font-weight: 700; border-bottom: 1px solid rgba(129, 140, 248, 0.3); transition: all 0.2s; }
           .prose-container a:hover { color: white; border-bottom-color: white; }
+          .blog-image-container { margin: 2.5rem 0; border-radius: 1.5rem; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.05); background: rgba(255, 255, 255, 0.02); }
+          .blog-image-container img { width: 100%; height: auto; display: block; opacity: 0.9; }
+          .image-caption { padding: 1rem 1.5rem; font-size: 0.875rem !important; color: #64748b !important; text-align: center; font-style: italic; margin-bottom: 0 !important; border-top: 1px solid rgba(255, 255, 255, 0.05); }
         `}} />
         <div 
           className="text-slate-300"
@@ -177,9 +149,7 @@ export const BlogPost: React.FC<BlogPostProps> = ({ post, onBack }) => {
         <h4 className="text-2xl sm:text-3xl font-bold text-white mb-4">Want these results?</h4>
         <p className="text-slate-400 mb-8 sm:mb-10 text-base sm:text-lg font-medium">Let's implement these strategies together and scale your growth.</p>
         <button 
-          onClick={() => {
-            onBack('#contact');
-          }}
+          onClick={() => handleBack('#contact')}
           className="w-full sm:w-auto px-10 sm:px-12 py-4 sm:py-5 accent-gradient text-white rounded-full font-black text-[10px] sm:text-xs uppercase tracking-widest shadow-2xl shadow-indigo-500/20 hover:scale-105 transition-transform"
         >
           Book a Consultation

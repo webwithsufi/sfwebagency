@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ArrowRight, ExternalLink, Loader2 } from 'lucide-react';
 
 interface BlogProps {
@@ -9,6 +10,7 @@ interface BlogProps {
 export const Blog: React.FC<BlogProps> = ({ onReadPost }) => {
   const [posts, setPosts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -24,11 +26,6 @@ export const Blog: React.FC<BlogProps> = ({ onReadPost }) => {
     };
     fetchPosts();
   }, []);
-
-  const scrollToId = (id: string) => {
-    const el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
-  };
 
   if (loading) {
     return (
@@ -51,7 +48,18 @@ export const Blog: React.FC<BlogProps> = ({ onReadPost }) => {
 
       <div className="grid md:grid-cols-3 gap-8">
         {posts.map((post, i) => (
-          <article key={i} className="glass-card rounded-[3rem] overflow-hidden group flex flex-col h-full">
+          <article key={i} className="glass-card rounded-[3rem] overflow-hidden group flex flex-col h-full hover:border-white/10 transition-all">
+            <div 
+              className="h-48 sm:h-56 overflow-hidden cursor-pointer"
+              onClick={() => onReadPost(post)}
+            >
+              <img 
+                src={post.image} 
+                alt={post.title} 
+                referrerPolicy="no-referrer"
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-70 group-hover:opacity-100"
+              />
+            </div>
             <div className="p-8 md:p-10 flex flex-col h-full">
               <span className="text-[10px] font-black uppercase tracking-widest text-emerald-400 mb-6 px-3 py-1 rounded-full bg-emerald-500/5 border border-emerald-500/10 w-fit">
                 {post.category}
@@ -71,7 +79,7 @@ export const Blog: React.FC<BlogProps> = ({ onReadPost }) => {
                   Read Full Guide <ArrowRight size={14} className="group-hover/btn:translate-x-1 transition-transform" />
                 </button>
                 <button 
-                  onClick={() => scrollToId(post.target)}
+                  onClick={() => navigate(`/services/${post.target}`)}
                   className="text-slate-600 hover:text-emerald-400 transition-colors"
                   title="Related Service"
                 >

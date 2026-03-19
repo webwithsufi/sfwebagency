@@ -6,6 +6,8 @@ export const Contact: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [selectedService, setSelectedService] = useState('');
+  const [selectedBudget, setSelectedBudget] = useState('');
+  const [customBudget, setCustomBudget] = useState('');
   const [copied, setCopied] = useState(false);
 
   const services = [
@@ -25,6 +27,13 @@ export const Contact: React.FC = () => {
 
     const formData = new FormData(e.currentTarget);
     const data = Object.fromEntries(formData.entries());
+    
+    // Handle custom budget logic
+    if (selectedBudget === 'custom') {
+      data.budget = customBudget;
+    } else if (selectedBudget === 'discuss') {
+      data.budget = 'Discuss Later';
+    }
     
     try {
       const response = await fetch("/api/contact", {
@@ -194,18 +203,41 @@ export const Contact: React.FC = () => {
                       name="budget"
                       required 
                       aria-required="true"
+                      value={selectedBudget}
+                      onChange={(e) => setSelectedBudget(e.target.value)}
                       className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white text-base focus:ring-2 focus:ring-indigo-500/50 outline-none transition-all appearance-none cursor-pointer font-medium"
                     >
                       <option value="" disabled className="bg-[#020617]">Select budget range...</option>
-                      <option value="5k-15k" className="bg-[#020617]">$5,000 - $15,000</option>
-                      <option value="15k-50k" className="bg-[#020617]">$15,000 - $50,000</option>
-                      <option value="50k-150k" className="bg-[#020617]">$50,000 - $150,000</option>
-                      <option value="150k+" className="bg-[#020617]">$150,000+</option>
+                      <option value="$5,000 - $15,000" className="bg-[#020617]">$5,000 - $15,000</option>
+                      <option value="$15,000 - $50,000" className="bg-[#020617]">$15,000 - $50,000</option>
+                      <option value="$50,000 - $150,000" className="bg-[#020617]">$50,000 - $150,000</option>
+                      <option value="$150,000+" className="bg-[#020617]">$150,000+</option>
+                      <option value="custom" className="bg-[#020617]">Set Custom Budget</option>
+                      <option value="discuss" className="bg-[#020617]">Discuss Later</option>
                     </select>
                     <ChevronDown size={20} className="absolute right-6 top-1/2 -translate-y-1/2 text-slate-500 pointer-events-none" />
                   </div>
                 </div>
               </div>
+
+              {selectedBudget === 'custom' && (
+                <div className="space-y-2 animate-in fade-in slide-in-from-top-2 duration-300">
+                  <label htmlFor="custom-budget" className="text-xs font-black uppercase tracking-[0.2em] text-slate-500 ml-1">Your Specific Budget</label>
+                  <div className="relative">
+                    <span className="absolute left-6 top-1/2 -translate-y-1/2 text-slate-500 font-bold">$</span>
+                    <input 
+                      id="custom-budget"
+                      type="text"
+                      required
+                      value={customBudget}
+                      onChange={(e) => setCustomBudget(e.target.value)}
+                      className="w-full bg-white/5 border border-white/10 rounded-2xl pl-10 pr-6 py-4 text-white text-base focus:ring-2 focus:ring-indigo-500/50 outline-none transition-all placeholder:text-slate-700 font-medium"
+                      placeholder="e.g. 10,000 or 10k"
+                    />
+                  </div>
+                  <p className="text-[10px] text-slate-600 font-bold uppercase tracking-widest ml-1">Enter your preferred investment amount</p>
+                </div>
+              )}
 
               <div className="space-y-2">
                 <label htmlFor="contact-message" className="text-xs font-black uppercase tracking-[0.2em] text-slate-500 ml-1">Project Brief</label>

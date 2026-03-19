@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Zap, Github, Twitter, Linkedin, Instagram } from 'lucide-react';
 
 interface FooterProps {
@@ -7,11 +8,21 @@ interface FooterProps {
 }
 
 export const Footer: React.FC<FooterProps> = ({ onShowPrivacy }) => {
-  const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
-    e.preventDefault();
-    const element = document.getElementById(id.replace('#', ''));
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (href.startsWith('#')) {
+      e.preventDefault();
+      const targetId = href.replace('#', '');
+      if (location.pathname === '/') {
+        const element = document.getElementById(targetId);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      } else {
+        navigate('/', { state: { scrollTo: targetId } });
+      }
     }
   };
 
@@ -39,20 +50,20 @@ export const Footer: React.FC<FooterProps> = ({ onShowPrivacy }) => {
           <div>
             <h4 className="text-white font-bold mb-6 uppercase text-xs tracking-widest">Our Agency</h4>
             <ul className="space-y-4 text-sm text-gray-500 font-bold">
-              <li><a href="#about" onClick={(e) => scrollToSection(e, '#about')} className="hover:text-indigo-400 transition-colors uppercase tracking-widest">About Our Mission</a></li>
-              <li><a href="#services" onClick={(e) => scrollToSection(e, '#services')} className="hover:text-indigo-400 transition-colors uppercase tracking-widest">Our Services</a></li>
-              <li><a href="#blog" onClick={(e) => scrollToSection(e, '#blog')} className="hover:text-indigo-400 transition-colors uppercase tracking-widest">Growth Insights</a></li>
-              <li><a href="#contact" onClick={(e) => scrollToSection(e, '#contact')} className="hover:text-indigo-400 transition-colors uppercase tracking-widest">Work With Us</a></li>
+              <li><a href="#about" onClick={(e) => handleNavClick(e, '#about')} className="hover:text-indigo-400 transition-colors uppercase tracking-widest">About Our Mission</a></li>
+              <li><a href="#services" onClick={(e) => handleNavClick(e, '#services')} className="hover:text-indigo-400 transition-colors uppercase tracking-widest">Our Services</a></li>
+              <li><a href="#blog" onClick={(e) => handleNavClick(e, '#blog')} className="hover:text-indigo-400 transition-colors uppercase tracking-widest">Growth Insights</a></li>
+              <li><a href="#contact" onClick={(e) => handleNavClick(e, '#contact')} className="hover:text-indigo-400 transition-colors uppercase tracking-widest">Work With Us</a></li>
             </ul>
           </div>
 
           <div>
             <h4 className="text-white font-bold mb-6 uppercase text-xs tracking-widest">Services</h4>
             <ul className="space-y-4 text-sm text-gray-500 font-bold">
-              <li><a href="#services" onClick={(e) => scrollToSection(e, '#services')} className="hover:text-indigo-400 transition-colors uppercase tracking-widest">SEO Mastery</a></li>
-              <li><a href="#services" onClick={(e) => scrollToSection(e, '#services')} className="hover:text-indigo-400 transition-colors uppercase tracking-widest">Web Engineering</a></li>
-              <li><a href="#services" onClick={(e) => scrollToSection(e, '#services')} className="hover:text-indigo-400 transition-colors uppercase tracking-widest">Google & FB Ads</a></li>
-              <li><a href="#ai-strategy" onClick={(e) => scrollToSection(e, '#ai-strategy')} className="hover:text-indigo-400 transition-colors uppercase tracking-widest">AI Roadmaps</a></li>
+              <li><a href="#services" onClick={(e) => handleNavClick(e, '#services')} className="hover:text-indigo-400 transition-colors uppercase tracking-widest">SEO Mastery</a></li>
+              <li><a href="#services" onClick={(e) => handleNavClick(e, '#services')} className="hover:text-indigo-400 transition-colors uppercase tracking-widest">Web Engineering</a></li>
+              <li><a href="#services" onClick={(e) => handleNavClick(e, '#services')} className="hover:text-indigo-400 transition-colors uppercase tracking-widest">Google & FB Ads</a></li>
+              <li><a href="#ai-strategy" onClick={(e) => handleNavClick(e, '#ai-strategy')} className="hover:text-indigo-400 transition-colors uppercase tracking-widest">AI Roadmaps</a></li>
             </ul>
           </div>
 
@@ -61,7 +72,13 @@ export const Footer: React.FC<FooterProps> = ({ onShowPrivacy }) => {
             <p className="text-sm text-gray-500 mb-4 font-bold uppercase tracking-widest leading-relaxed">Ready to scale? <br/>dmwithsufi@gmail.com</p>
             <div className="flex flex-col gap-2">
               <button 
-                onClick={() => document.getElementById('contact')?.scrollIntoView({behavior: 'smooth'})}
+                onClick={() => {
+                  if (location.pathname === '/') {
+                    document.getElementById('contact')?.scrollIntoView({behavior: 'smooth'});
+                  } else {
+                    navigate('/', { state: { scrollTo: 'contact' } });
+                  }
+                }}
                 className="bg-indigo-600 text-white px-6 py-4 rounded-xl text-xs font-black uppercase tracking-widest hover:bg-indigo-500 transition-colors shadow-lg shadow-indigo-600/20"
               >
                 Book a Strategy Call
@@ -71,9 +88,9 @@ export const Footer: React.FC<FooterProps> = ({ onShowPrivacy }) => {
         </div>
 
         <div className="pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] text-gray-600 font-black uppercase tracking-[0.2em]">
-          <p>© 2024 SF Growth Agency. All results are data-driven.</p>
+          <p>© 2026 SF Growth Agency. All results are data-driven.</p>
           <div className="flex gap-6">
-            <button onClick={onShowPrivacy} className="hover:text-white transition-colors uppercase tracking-widest">Privacy</button>
+            <Link to="/privacy" className="hover:text-white transition-colors uppercase tracking-widest">Privacy</Link>
             <a href="#" className="hover:text-white transition-colors">Terms</a>
             <a href="#" className="hover:text-white transition-colors">Cookies</a>
           </div>

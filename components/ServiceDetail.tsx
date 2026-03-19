@@ -1,36 +1,42 @@
 
 import React, { useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, CheckCircle2, ArrowRight } from 'lucide-react';
+import { services } from './serviceData.tsx';
+import { SEO } from './SEO.tsx';
 
-interface ServiceDetailProps {
-  service: {
-    slug: string;
-    icon: React.ReactNode;
-    title: string;
-    description: string;
-    outcome: string;
-    longDescription: string;
-    features: string[];
-    benefits: string[];
-  };
-  onBack: (targetId?: string) => void;
-}
+export const ServiceDetail: React.FC = () => {
+  const { slug } = useParams<{ slug: string }>();
+  const navigate = useNavigate();
+  const service = services.find(s => s.slug === slug);
 
-export const ServiceDetail: React.FC<ServiceDetailProps> = ({ service, onBack }) => {
   useEffect(() => {
-    const originalTitle = document.title;
-    document.title = `${service.title} | SF Growth Agency`;
-    window.scrollTo(0, 0);
-    
-    return () => {
-      document.title = originalTitle;
-    };
-  }, [service]);
+    if (!service) {
+      navigate('/');
+    } else {
+      window.scrollTo(0, 0);
+    }
+  }, [service, navigate]);
+
+  if (!service) return null;
+
+  const handleBack = (targetId?: string) => {
+    if (targetId) {
+      navigate('/', { state: { scrollTo: targetId.replace('#', '') } });
+    } else {
+      navigate(-1);
+    }
+  };
 
   return (
     <div className="max-w-5xl mx-auto px-6 md:px-8 py-12 sm:py-20 animate-in fade-in slide-in-from-bottom-10 duration-700">
+      <SEO 
+        title={service.title} 
+        description={service.description} 
+        canonical={`https://ais-pre-t4eqrud2gdezald763ebt5-278818541891.asia-southeast1.run.app/services/${slug}`}
+      />
       <button 
-        onClick={() => onBack()}
+        onClick={() => handleBack()}
         className="flex items-center gap-2 text-indigo-400 font-bold uppercase text-[10px] tracking-widest mb-12 hover:text-white transition-colors group"
       >
         <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" /> Back to Services
@@ -101,13 +107,13 @@ export const ServiceDetail: React.FC<ServiceDetailProps> = ({ service, onBack })
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <button 
-            onClick={() => onBack('#contact')}
+            onClick={() => handleBack('#contact')}
             className="px-10 py-5 accent-gradient text-white rounded-full font-black text-xs uppercase tracking-widest shadow-2xl shadow-indigo-500/20 hover:scale-105 transition-transform"
           >
             Get a Free Audit
           </button>
           <button 
-            onClick={() => onBack('#contact')}
+            onClick={() => handleBack('#contact')}
             className="px-10 py-5 bg-white/5 text-white border border-white/10 rounded-full font-black text-xs uppercase tracking-widest hover:bg-white/10 transition-all"
           >
             Talk to an Expert

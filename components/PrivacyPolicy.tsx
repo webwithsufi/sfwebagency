@@ -1,16 +1,24 @@
 
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, Shield, Lock, Eye, FileText } from 'lucide-react';
+import { SEO } from './SEO.tsx';
 
 interface PrivacyPolicyProps {
   onBack: () => void;
 }
 
-export const PrivacyPolicy: React.FC<PrivacyPolicyProps> = ({ onBack }) => {
+export const PrivacyPolicy: React.FC<PrivacyPolicyProps> = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="max-w-4xl mx-auto px-6 md:px-8 py-12 sm:py-20 animate-in fade-in slide-in-from-bottom-10 duration-700">
+      <SEO 
+        title="Privacy Policy" 
+        description="Our commitment to protecting your data and privacy while delivering elite growth services in 2026." 
+      />
       <button 
-        onClick={onBack}
+        onClick={() => navigate('/')}
         className="flex items-center gap-2 text-indigo-400 font-bold uppercase text-[9px] sm:text-[10px] tracking-widest mb-10 sm:mb-12 hover:text-white transition-colors group"
       >
         <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" /> Back to SF Growth
@@ -23,7 +31,7 @@ export const PrivacyPolicy: React.FC<PrivacyPolicyProps> = ({ onBack }) => {
         <h1 className="text-3xl sm:text-5xl md:text-7xl font-bold text-white tracking-tighter mb-8 sm:mb-10 leading-[1] sm:leading-[0.95]">
           Privacy <span className="gradient-text italic">Policy.</span>
         </h1>
-        <p className="text-slate-500 text-sm font-bold uppercase tracking-[0.2em]">Last Updated: February 24, 2024</p>
+        <p className="text-slate-500 text-sm font-bold uppercase tracking-[0.2em]">Last Updated: March 19, 2026</p>
       </header>
 
       <div className="prose-container">

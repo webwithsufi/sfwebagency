@@ -1,8 +1,8 @@
 
 import express from "express";
 import { createServer as createViteServer } from "vite";
-import path from "path";
-import { fileURLToPath } from "url";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import app from "./api/index.ts";
 
 const __filename = fileURLToPath(import.meta.url);
