@@ -22,12 +22,41 @@ export const Home: React.FC = () => {
     navigate(`/services/${service.slug}`);
   };
 
+  const organizationSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "SF Growth Agency",
+    "url": "https://ais-pre-t4eqrud2gdezald763ebt5-278818541891.asia-southeast1.run.app/",
+    "logo": "https://ais-pre-t4eqrud2gdezald763ebt5-278818541891.asia-southeast1.run.app/logo.svg",
+    "description": "Elite SEO, Web Dev & Digital Marketing agency specializing in growth.",
+    "sameAs": [
+      "https://twitter.com/sfgrowth",
+      "https://linkedin.com/company/sfgrowth"
+    ]
+  };
+
+  const websiteSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "SF Growth Agency",
+    "url": "https://ais-pre-t4eqrud2gdezald763ebt5-278818541891.asia-southeast1.run.app/",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://ais-pre-t4eqrud2gdezald763ebt5-278818541891.asia-southeast1.run.app/blog?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  };
+
   return (
     <>
       <SEO 
         title="Elite SEO, Web Dev & Digital Marketing" 
         description="SF Growth Agency helps you dominate search results, build high-performance websites, and scale your business with data-driven marketing."
         canonical="https://ais-pre-t4eqrud2gdezald763ebt5-278818541891.asia-southeast1.run.app/"
+        schema={{
+          "@context": "https://schema.org",
+          "@graph": [organizationSchema, websiteSchema]
+        }}
       />
       <Hero />
       <section id="about">

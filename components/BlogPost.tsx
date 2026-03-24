@@ -47,6 +47,28 @@ export const BlogPost: React.FC = () => {
 
   if (!post) return null;
 
+  const blogSchema = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": post.title,
+    "image": [post.image],
+    "datePublished": post.date,
+    "author": [{
+      "@type": "Person",
+      "name": post.author,
+      "url": "https://ais-pre-t4eqrud2gdezald763ebt5-278818541891.asia-southeast1.run.app/"
+    }],
+    "description": post.excerpt,
+    "publisher": {
+      "@type": "Organization",
+      "name": "SF Growth Agency",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://ais-pre-t4eqrud2gdezald763ebt5-278818541891.asia-southeast1.run.app/logo.svg"
+      }
+    }
+  };
+
   return (
     <div className="max-w-4xl mx-auto px-6 md:px-8 py-12 sm:py-20 animate-in fade-in slide-in-from-bottom-10 duration-700">
       <SEO 
@@ -55,6 +77,7 @@ export const BlogPost: React.FC = () => {
         ogImage={post.image}
         ogType="article"
         canonical={`https://ais-pre-t4eqrud2gdezald763ebt5-278818541891.asia-southeast1.run.app/blog/${id}`}
+        schema={blogSchema}
       />
       
       <button 

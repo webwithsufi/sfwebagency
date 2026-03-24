@@ -5,12 +5,32 @@ import { motion } from 'framer-motion';
 import { SEO } from './SEO';
 
 const ServicesPage = () => {
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://ais-pre-t4eqrud2gdezald763ebt5-278818541891.asia-southeast1.run.app/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Services",
+        "item": "https://ais-pre-t4eqrud2gdezald763ebt5-278818541891.asia-southeast1.run.app/services"
+      }
+    ]
+  };
+
   return (
     <div className="pt-24 pb-20 bg-slate-950">
       <SEO 
         title="Our Services" 
         description="We offer fast websites, #1 Google rankings, and profitable ads to grow your business. Check out our full list of digital growth services." 
         canonical="https://ais-pre-t4eqrud2gdezald763ebt5-278818541891.asia-southeast1.run.app/services"
+        schema={breadcrumbSchema}
       />
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

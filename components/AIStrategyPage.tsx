@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Helmet } from 'react-helmet-async';
+import { SEO } from './SEO';
 import { ArrowLeft, Sparkles } from 'lucide-react';
 import { GrowthTool } from './GrowthTool';
 
@@ -9,13 +9,33 @@ interface AIStrategyPageProps {
 }
 
 export const AIStrategyPage: React.FC<AIStrategyPageProps> = ({ onBack }) => {
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://ais-pre-t4eqrud2gdezald763ebt5-278818541891.asia-southeast1.run.app/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "AI Strategy Engine",
+        "item": "https://ais-pre-t4eqrud2gdezald763ebt5-278818541891.asia-southeast1.run.app/ai-strategy"
+      }
+    ]
+  };
+
   return (
     <div className="max-w-7xl mx-auto px-6 md:px-8 py-12 sm:py-20 animate-in fade-in slide-in-from-bottom-10 duration-700">
-      <Helmet>
-        <title>AI Strategy Engine | SF Growth Agency</title>
-        <meta name="description" content="Use our AI Strategy Engine to see how much more money your business could be making. Get a simple roadmap to scale your revenue in 2026." />
-        <link rel="canonical" href="https://ais-pre-t4eqrud2gdezald763ebt5-278818541891.asia-southeast1.run.app/ai-strategy" />
-      </Helmet>
+      <SEO 
+        title="AI Strategy Engine" 
+        description="Use our AI Strategy Engine to see how much more money your business could be making. Get a simple roadmap to scale your revenue in 2026." 
+        canonical="https://ais-pre-t4eqrud2gdezald763ebt5-278818541891.asia-southeast1.run.app/ai-strategy"
+        schema={breadcrumbSchema}
+      />
 
       <button 
         onClick={() => onBack()}

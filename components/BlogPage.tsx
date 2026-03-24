@@ -19,6 +19,25 @@ const BlogPage = () => {
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
 
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://ais-pre-t4eqrud2gdezald763ebt5-278818541891.asia-southeast1.run.app/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Blog",
+        "item": "https://ais-pre-t4eqrud2gdezald763ebt5-278818541891.asia-southeast1.run.app/blog"
+      }
+    ]
+  };
+
   useEffect(() => {
     fetch('/api/posts')
       .then(res => res.json())
@@ -46,6 +65,7 @@ const BlogPage = () => {
         title="Insights & Blog" 
         description="Read our latest insights on SEO, web development, and digital marketing strategies to grow your business in 2026." 
         canonical="https://ais-pre-t4eqrud2gdezald763ebt5-278818541891.asia-southeast1.run.app/blog"
+        schema={breadcrumbSchema}
       />
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

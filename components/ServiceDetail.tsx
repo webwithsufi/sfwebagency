@@ -20,6 +20,30 @@ export const ServiceDetail: React.FC = () => {
 
   if (!service) return null;
 
+  const serviceSchema = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": service.title,
+    "description": service.description,
+    "provider": {
+      "@type": "Organization",
+      "name": "SF Growth Agency",
+      "url": "https://ais-pre-t4eqrud2gdezald763ebt5-278818541891.asia-southeast1.run.app/"
+    },
+    "areaServed": "Global",
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Digital Growth Services",
+      "itemListElement": service.features.map((f, i) => ({
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": f
+        }
+      }))
+    }
+  };
+
   const handleBack = (targetId?: string) => {
     if (targetId) {
       navigate('/', { state: { scrollTo: targetId.replace('#', '') } });
@@ -34,6 +58,7 @@ export const ServiceDetail: React.FC = () => {
         title={service.title} 
         description={service.description} 
         canonical={`https://ais-pre-t4eqrud2gdezald763ebt5-278818541891.asia-southeast1.run.app/services/${slug}`}
+        schema={serviceSchema}
       />
       <button 
         onClick={() => handleBack()}

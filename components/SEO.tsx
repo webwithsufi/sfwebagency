@@ -8,6 +8,7 @@ interface SEOProps {
   canonical?: string;
   ogType?: string;
   ogImage?: string;
+  schema?: object;
 }
 
 export const SEO: React.FC<SEOProps> = ({ 
@@ -15,7 +16,8 @@ export const SEO: React.FC<SEOProps> = ({
   description, 
   canonical, 
   ogType = 'website',
-  ogImage = 'https://picsum.photos/seed/sf-growth/1200/630'
+  ogImage = 'https://picsum.photos/seed/sf-growth/1200/630',
+  schema
 }) => {
   const siteName = 'SF Growth Agency';
   const fullTitle = `${title} | ${siteName}`;
@@ -36,6 +38,12 @@ export const SEO: React.FC<SEOProps> = ({
       <meta name="twitter:title" content={fullTitle} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={ogImage} />
+
+      {schema && (
+        <script type="application/ld+json">
+          {JSON.stringify(schema)}
+        </script>
+      )}
     </Helmet>
   );
 };
