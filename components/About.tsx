@@ -20,17 +20,17 @@ export const About: React.FC = () => {
             <span className="gradient-text italic">Driven by results.</span>
           </h3>
           <p className="text-slate-400 text-lg sm:text-lg leading-relaxed mb-6 font-medium">
-            SF Growth Agency wasn't born in a boardroom. It was born in the trenches of high-performance web engineering. 
-            I started this agency after seeing too many businesses waste thousands on beautiful websites that simply didn't sell.
+            Based in Karachi, we help local businesses get found on Google and grow digitally. 
+            SF Growth Agency was born to help ambitious brands bridge the gap between elite tech and aggressive marketing.
           </p>
           <p className="text-slate-400 text-lg sm:text-lg leading-relaxed mb-10 font-medium">
-            Our mission is simple: To bridge the gap between elite tech and aggressive marketing. We treat your business as our own, 
-            applying the same psychological tactics and sub-second performance standards that we use for our global partners.
+            We treat your business as our own, applying high-performance web engineering and data-driven SEO strategies 
+            to ensure you stay ahead of the competition in the Pakistani market.
           </p>
           <div className="flex justify-center lg:justify-start gap-8 sm:gap-10">
             <div className="">
-              <p className="text-4xl sm:text-4xl font-black text-white mb-1">250+</p>
-              <p className="text-xs uppercase font-bold tracking-[0.2em] text-slate-500">Global Partners 2026</p>
+              <p className="text-4xl sm:text-4xl font-black text-white mb-1">50+</p>
+              <p className="text-xs uppercase font-bold tracking-[0.2em] text-slate-500">Projects Delivered</p>
             </div>
             <div className="">
               <p className="text-4xl sm:text-4xl font-black text-white mb-1">98%</p>

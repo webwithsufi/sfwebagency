@@ -48,11 +48,12 @@ export const Blog: React.FC<BlogProps> = ({ onReadPost }) => {
 
       <div className="grid md:grid-cols-3 gap-8">
         {posts.map((post, i) => (
-          <article key={i} className="glass-card rounded-[3rem] overflow-hidden group flex flex-col h-full hover:border-white/10 transition-all">
-            <div 
-              className="h-48 sm:h-56 overflow-hidden cursor-pointer"
-              onClick={() => onReadPost(post)}
-            >
+          <article 
+            key={i} 
+            onClick={() => onReadPost(post)}
+            className="glass-card rounded-[3rem] overflow-hidden group flex flex-col h-full hover:border-white/10 transition-all cursor-pointer"
+          >
+            <div className="h-48 sm:h-56 overflow-hidden">
               <img 
                 src={post.image} 
                 alt={post.title} 
@@ -72,15 +73,15 @@ export const Blog: React.FC<BlogProps> = ({ onReadPost }) => {
               </p>
               
               <div className="pt-8 border-t border-white/5 flex items-center justify-between">
-                <button 
-                  onClick={() => onReadPost(post)}
-                  className="text-white text-[11px] font-black uppercase tracking-widest flex items-center gap-2 group/btn"
-                >
+                <span className="text-white text-[11px] font-black uppercase tracking-widest flex items-center gap-2 group/btn">
                   Read Full Guide <ArrowRight size={14} className="group-hover/btn:translate-x-1 transition-transform" />
-                </button>
+                </span>
                 <button 
-                  onClick={() => navigate(`/services/${post.target}`)}
-                  className="text-slate-600 hover:text-emerald-400 transition-colors"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    navigate(`/services/${post.target}`);
+                  }}
+                  className="text-slate-600 hover:text-emerald-400 transition-colors relative z-10 p-2"
                   title="Related Service"
                 >
                   <ExternalLink size={16} />
@@ -97,7 +98,7 @@ export const Blog: React.FC<BlogProps> = ({ onReadPost }) => {
             const el = document.getElementById('contact');
             if (el) el.scrollIntoView({ behavior: 'smooth' });
           }}
-          className="text-slate-500 hover:text-white font-bold uppercase tracking-widest text-xs transition-all border-b border-white/10 pb-1"
+          className="px-12 py-6 accent-gradient rounded-full text-white font-black text-xs uppercase tracking-[0.2em] hover:scale-105 active:scale-95 transition-all shadow-[0_20px_40px_-10px_rgba(99,102,241,0.4)] border-none text-center"
         >
           Want a custom strategy for your niche? Let's talk
         </button>

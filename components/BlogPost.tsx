@@ -56,7 +56,7 @@ export const BlogPost: React.FC = () => {
     "author": [{
       "@type": "Person",
       "name": post.author,
-      "url": "https://ais-pre-t4eqrud2gdezald763ebt5-278818541891.asia-southeast1.run.app/"
+      "url": "https://sf-growth-agency.vercel.app/"
     }],
     "description": post.excerpt,
     "publisher": {
@@ -64,7 +64,7 @@ export const BlogPost: React.FC = () => {
       "name": "SF Growth Agency",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://ais-pre-t4eqrud2gdezald763ebt5-278818541891.asia-southeast1.run.app/logo.svg"
+        "url": "https://sf-growth-agency.vercel.app/logo.svg"
       }
     }
   };
@@ -76,7 +76,7 @@ export const BlogPost: React.FC = () => {
         description={post.excerpt} 
         ogImage={post.image}
         ogType="article"
-        canonical={`https://ais-pre-t4eqrud2gdezald763ebt5-278818541891.asia-southeast1.run.app/blog/${id}`}
+        canonical={`https://sf-growth-agency.vercel.app/blog/${id}`}
         schema={blogSchema}
       />
       

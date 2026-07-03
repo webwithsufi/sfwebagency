@@ -13,13 +13,13 @@ const ServicesPage = () => {
         "@type": "ListItem",
         "position": 1,
         "name": "Home",
-        "item": "https://ais-pre-t4eqrud2gdezald763ebt5-278818541891.asia-southeast1.run.app/"
+        "item": "https://sf-growth-agency.vercel.app/"
       },
       {
         "@type": "ListItem",
         "position": 2,
         "name": "Services",
-        "item": "https://ais-pre-t4eqrud2gdezald763ebt5-278818541891.asia-southeast1.run.app/services"
+        "item": "https://sf-growth-agency.vercel.app/services"
       }
     ]
   };
@@ -29,7 +29,7 @@ const ServicesPage = () => {
       <SEO 
         title="Our Services" 
         description="We offer fast websites, #1 Google rankings, and profitable ads to grow your business. Check out our full list of digital growth services." 
-        canonical="https://ais-pre-t4eqrud2gdezald763ebt5-278818541891.asia-southeast1.run.app/services"
+        canonical="https://sf-growth-agency.vercel.app/services"
         schema={breadcrumbSchema}
       />
       

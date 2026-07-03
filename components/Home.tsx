@@ -26,8 +26,8 @@ export const Home: React.FC = () => {
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "SF Growth Agency",
-    "url": "https://ais-pre-t4eqrud2gdezald763ebt5-278818541891.asia-southeast1.run.app/",
-    "logo": "https://ais-pre-t4eqrud2gdezald763ebt5-278818541891.asia-southeast1.run.app/logo.svg",
+    "url": "https://sf-growth-agency.vercel.app/",
+    "logo": "https://sf-growth-agency.vercel.app/logo.svg",
     "description": "Elite SEO, Web Dev & Digital Marketing agency specializing in growth.",
     "sameAs": [
       "https://twitter.com/sfgrowth",
@@ -39,10 +39,10 @@ export const Home: React.FC = () => {
     "@context": "https://schema.org",
     "@type": "WebSite",
     "name": "SF Growth Agency",
-    "url": "https://ais-pre-t4eqrud2gdezald763ebt5-278818541891.asia-southeast1.run.app/",
+    "url": "https://sf-growth-agency.vercel.app/",
     "potentialAction": {
       "@type": "SearchAction",
-      "target": "https://ais-pre-t4eqrud2gdezald763ebt5-278818541891.asia-southeast1.run.app/blog?q={search_term_string}",
+      "target": "https://sf-growth-agency.vercel.app/blog?q={search_term_string}",
       "query-input": "required name=search_term_string"
     }
   };
@@ -50,9 +50,9 @@ export const Home: React.FC = () => {
   return (
     <>
       <SEO 
-        title="Elite SEO, Web Dev & Digital Marketing" 
-        description="SF Growth Agency helps you dominate search results, build high-performance websites, and scale your business with data-driven marketing."
-        canonical="https://ais-pre-t4eqrud2gdezald763ebt5-278818541891.asia-southeast1.run.app/"
+        title="SF Growth Agency | Digital Marketing & SEO Agency in Karachi, Pakistan" 
+        description="SF Growth Agency is Karachi's top digital marketing agency offering SEO, web development, social media management, graphic design & content writing. Get more clients online. Contact us today."
+        canonical="https://sf-growth-agency.vercel.app/"
         schema={{
           "@context": "https://schema.org",
           "@graph": [organizationSchema, websiteSchema]

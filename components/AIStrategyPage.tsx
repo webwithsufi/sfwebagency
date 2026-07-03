@@ -17,13 +17,13 @@ export const AIStrategyPage: React.FC<AIStrategyPageProps> = ({ onBack }) => {
         "@type": "ListItem",
         "position": 1,
         "name": "Home",
-        "item": "https://ais-pre-t4eqrud2gdezald763ebt5-278818541891.asia-southeast1.run.app/"
+        "item": "https://sf-growth-agency.vercel.app/"
       },
       {
         "@type": "ListItem",
         "position": 2,
         "name": "AI Strategy Engine",
-        "item": "https://ais-pre-t4eqrud2gdezald763ebt5-278818541891.asia-southeast1.run.app/ai-strategy"
+        "item": "https://sf-growth-agency.vercel.app/ai-strategy"
       }
     ]
   };
@@ -33,7 +33,7 @@ export const AIStrategyPage: React.FC<AIStrategyPageProps> = ({ onBack }) => {
       <SEO 
         title="AI Strategy Engine" 
         description="Use our AI Strategy Engine to see how much more money your business could be making. Get a simple roadmap to scale your revenue in 2026." 
-        canonical="https://ais-pre-t4eqrud2gdezald763ebt5-278818541891.asia-southeast1.run.app/ai-strategy"
+        canonical="https://sf-growth-agency.vercel.app/ai-strategy"
         schema={breadcrumbSchema}
       />
 

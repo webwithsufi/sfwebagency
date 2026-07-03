@@ -112,7 +112,7 @@ export const Portfolio: React.FC = () => {
       <div className="mt-20 text-center">
         <button 
           onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-          className="px-12 py-6 glass-card rounded-full text-white font-black text-xs uppercase tracking-[0.2em] hover:bg-white/5 transition-all border-white/10"
+          className="px-12 py-6 accent-gradient rounded-full text-white font-black text-xs uppercase tracking-[0.2em] hover:scale-105 active:scale-95 transition-all shadow-[0_20px_40px_-10px_rgba(99,102,241,0.4)] border-none text-center"
         >
           Want results like these? Let's talk
         </button>

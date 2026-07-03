@@ -28,7 +28,7 @@ export const ServiceDetail: React.FC = () => {
     "provider": {
       "@type": "Organization",
       "name": "SF Growth Agency",
-      "url": "https://ais-pre-t4eqrud2gdezald763ebt5-278818541891.asia-southeast1.run.app/"
+      "url": "https://sf-growth-agency.vercel.app/"
     },
     "areaServed": "Global",
     "hasOfferCatalog": {
@@ -57,7 +57,7 @@ export const ServiceDetail: React.FC = () => {
       <SEO 
         title={service.title} 
         description={service.description} 
-        canonical={`https://ais-pre-t4eqrud2gdezald763ebt5-278818541891.asia-southeast1.run.app/services/${slug}`}
+        canonical={`https://sf-growth-agency.vercel.app/services/${slug}`}
         schema={serviceSchema}
       />
       <button 

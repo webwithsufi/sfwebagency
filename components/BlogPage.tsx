@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Calendar, User, Clock } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { SEO } from './SEO';
 
 interface BlogPost {
@@ -18,6 +18,7 @@ interface BlogPost {
 const BlogPage = () => {
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",
@@ -27,13 +28,13 @@ const BlogPage = () => {
         "@type": "ListItem",
         "position": 1,
         "name": "Home",
-        "item": "https://ais-pre-t4eqrud2gdezald763ebt5-278818541891.asia-southeast1.run.app/"
+        "item": "https://sf-growth-agency.vercel.app/"
       },
       {
         "@type": "ListItem",
         "position": 2,
         "name": "Blog",
-        "item": "https://ais-pre-t4eqrud2gdezald763ebt5-278818541891.asia-southeast1.run.app/blog"
+        "item": "https://sf-growth-agency.vercel.app/blog"
       }
     ]
   };
@@ -64,7 +65,7 @@ const BlogPage = () => {
       <SEO 
         title="Insights & Blog" 
         description="Read our latest insights on SEO, web development, and digital marketing strategies to grow your business in 2026." 
-        canonical="https://ais-pre-t4eqrud2gdezald763ebt5-278818541891.asia-southeast1.run.app/blog"
+        canonical="https://sf-growth-agency.vercel.app/blog"
         schema={breadcrumbSchema}
       />
       
@@ -94,7 +95,8 @@ const BlogPage = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
-              className="bg-slate-900/50 border border-slate-800 rounded-2xl overflow-hidden hover:border-emerald-500/50 transition-all group"
+              onClick={() => navigate(`/blog/${post.id}`)}
+              className="bg-slate-900/50 border border-slate-800 rounded-2xl overflow-hidden hover:border-emerald-500/50 transition-all group cursor-pointer"
             >
               <div className="relative h-48 overflow-hidden">
                 <img 

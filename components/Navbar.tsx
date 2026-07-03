@@ -93,7 +93,7 @@ export const Navbar: React.FC<NavbarProps> = ({ scrolled }) => {
             <a 
               href="#contact" 
               onClick={(e) => handleNavClick(e, '#contact')}
-              className="hidden sm:flex px-5 md:px-6 py-2 md:py-2.5 rounded-full bg-white text-black text-[9px] md:text-[10px] font-black uppercase tracking-wider hover:scale-105 active:scale-95 transition-all shadow-xl shadow-white/5"
+              className="hidden sm:flex px-5 md:px-6 py-2 md:py-2.5 rounded-full accent-gradient text-white text-[9px] md:text-[10px] font-black uppercase tracking-wider hover:scale-105 active:scale-95 transition-all shadow-xl shadow-indigo-500/10"
             >
               Start Project
             </a>

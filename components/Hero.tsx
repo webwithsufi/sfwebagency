@@ -20,16 +20,16 @@ export const Hero: React.FC = () => {
         <div className="flex flex-col items-center text-center">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-indigo-500/20 bg-indigo-500/5 text-indigo-300 text-sm font-black uppercase tracking-[0.3em] mb-8 sm:mb-10 shadow-lg shadow-indigo-500/5">
             <Sparkles size={14} className="animate-pulse text-indigo-400" />
-            <span className="truncate">Global Growth Partners 2026</span>
+            <span className="truncate text-[8px] sm:text-sm">Karachi's Digital Growth Agency</span>
           </div>
 
           <h1 className="text-5xl sm:text-7xl md:text-8xl lg:text-[7rem] font-black leading-[0.95] tracking-tighter text-white mb-8 sm:mb-10 uppercase">
-            WE HELP YOU <br />
-            <span className="gradient-text italic">WIN ON GOOGLE.</span>
+            GET MORE <br />
+            <span className="gradient-text italic">CUSTOMERS.</span>
           </h1>
           
           <p className="max-w-2xl text-lg sm:text-xl text-slate-400 mb-10 sm:mb-14 leading-relaxed font-medium px-4">
-            Stop losing customers to slow websites and bad SEO. We build fast sites and get you to the #1 spot on Google so you can grow your business faster.
+            Stop losing customers to competitors. We build websites that rank on Google and bring you real clients in Karachi.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 w-full sm:w-auto">
@@ -49,6 +49,7 @@ export const Hero: React.FC = () => {
             </a>
           </div>
 
+          {/* 
           <div className="mt-12 sm:mt-16 flex flex-col items-center gap-6">
             <p className="text-xs font-black uppercase tracking-[0.4em] text-slate-600">Trusted by innovative brands</p>
             <div className="flex flex-wrap justify-center items-center gap-6 sm:gap-12 opacity-40 grayscale hover:grayscale-0 transition-all duration-700">
@@ -58,6 +59,7 @@ export const Hero: React.FC = () => {
               <span className="text-lg sm:text-2xl font-black text-white tracking-tighter">SFCORE</span>
             </div>
           </div>
+          */}
         </div>
 
         <div className="mt-24 sm:mt-48 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
